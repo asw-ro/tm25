@@ -267,9 +267,43 @@
         box-shadow: var(--shadow);
       }
 
+      .footnotes-header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.8rem;
+        margin-bottom: 0.9rem;
+      }
+
       .footnotes h3 {
         font-size: 1.1rem;
-        margin-bottom: 0.8rem;
+      }
+
+      .download-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.45rem 0.85rem;
+        border-radius: 999px;
+        background: rgba(11, 95, 255, 0.12);
+        border: 1px solid rgba(11, 95, 255, 0.2);
+        color: var(--accent);
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-decoration: none;
+        transition: transform 160ms ease, box-shadow 160ms ease;
+        box-shadow: 0 10px 26px rgba(15, 74, 201, 0.12);
+      }
+
+      .download-link:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 32px rgba(15, 74, 201, 0.18);
+      }
+
+      .download-link svg {
+        width: 18px;
+        height: 18px;
       }
 
       .footnotes p {
@@ -521,7 +555,31 @@
       </section>
 
       <section class="footnotes">
-        <h3>Prezentări tehnice</h3>
+        <div class="footnotes-header">
+          <h3>Prezentări tehnice</h3>
+          <a
+            class="download-link"
+            href="https://teambuilding.asis.ro/"
+            target="_blank"
+            rel="noopener"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            Descărcă prezentările
+          </a>
+        </div>
         <p>
           Selecție de proiecte, soluții noi și demonstrații care vor fi
           acoperite în sesiunile de prezentări.
