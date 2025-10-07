@@ -306,6 +306,50 @@
         height: 18px;
       }
 
+      .back-to-top {
+        position: fixed;
+        right: clamp(1rem, 3vw, 2rem);
+        bottom: clamp(1.2rem, 4vw, 2.2rem);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        border: 1px solid rgba(11, 95, 255, 0.2);
+        background: radial-gradient(
+          circle at 30% 30%,
+          rgba(138, 46, 255, 0.18),
+          rgba(11, 95, 255, 0.42)
+        );
+        color: #ffffff;
+        box-shadow: 0 16px 34px rgba(15, 74, 201, 0.28);
+        cursor: pointer;
+        transition: opacity 160ms ease, transform 160ms ease;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 1000;
+      }
+
+      .back-to-top:hover {
+        transform: translateY(-2px);
+      }
+
+      .back-to-top:focus-visible {
+        outline: 3px solid rgba(11, 95, 255, 0.6);
+        outline-offset: 3px;
+      }
+
+      .back-to-top svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .back-to-top.is-visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
       .footnotes p {
         color: var(--muted);
         font-size: 0.95rem;
@@ -618,33 +662,64 @@
         Natalia Pavel la +40 730 020 222.
       </footer>
     </main>
+    <button class="back-to-top" type="button" aria-label="Înapoi sus">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <polyline points="18 15 12 9 6 15" />
+        <line x1="12" y1="9" x2="12" y2="21" />
+      </svg>
+    </button>
     <script>
       (function () {
         const countdownEl = document.getElementById("countdown");
-        if (!countdownEl) return;
+        if (countdownEl) {
+          const eventDate = new Date("2025-10-17T00:00:00");
+          const today = new Date();
 
-        const eventDate = new Date("2025-10-17T00:00:00");
-        const today = new Date();
+          // Normalize to midnight for accurate day difference
+          eventDate.setHours(0, 0, 0, 0);
+          today.setHours(0, 0, 0, 0);
 
-        // Normalize to midnight for accurate day difference
-        eventDate.setHours(0, 0, 0, 0);
-        today.setHours(0, 0, 0, 0);
+          const msPerDay = 24 * 60 * 60 * 1000;
+          const diffDays = Math.floor((eventDate - today) / msPerDay);
 
-        const msPerDay = 24 * 60 * 60 * 1000;
-        const diffDays = Math.floor((eventDate - today) / msPerDay);
+          let message = "";
+          if (diffDays > 1) {
+            message = `Mai sunt ${diffDays} zile până începem.`;
+          } else if (diffDays === 1) {
+            message = "Mai este 1 zi până începem.";
+          } else if (diffDays === 0) {
+            message = "Începem astăzi!";
+          } else {
+            message =
+              "Team building-ul este în desfășurare sau a fost încheiat.";
+          }
 
-        let message = "";
-        if (diffDays > 1) {
-          message = `Mai sunt ${diffDays} zile până începem.`;
-        } else if (diffDays === 1) {
-          message = "Mai este 1 zi până începem.";
-        } else if (diffDays === 0) {
-          message = "Începem astăzi!";
-        } else {
-          message = "Team building-ul este în desfășurare sau a fost încheiat.";
+          countdownEl.textContent = message;
         }
 
-        countdownEl.textContent = message;
+        const backTopBtn = document.querySelector(".back-to-top");
+
+        const toggleBackTop = () => {
+          if (!backTopBtn) return;
+          const shouldShow = window.scrollY > 240;
+          backTopBtn.classList.toggle("is-visible", shouldShow);
+        };
+
+        toggleBackTop();
+        window.addEventListener("scroll", toggleBackTop, { passive: true });
+
+        backTopBtn?.addEventListener("click", () => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
       })();
     </script>
   </body>
