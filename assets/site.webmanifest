@@ -2,7 +2,7 @@
   "name": "Teambuilding 2025 - Timișoara",
   "short_name": "ASW 2025",
   "description": "Programul oficial și detaliile Team Building-ului ASW la Timișoara, 17-19 octombrie 2025.",
-  "start_url": "./teambuilding2025.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#f6f9ff",
   "theme_color": "#0b5fff",

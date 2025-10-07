@@ -213,6 +213,42 @@
         font-weight: 500;
       }
 
+      .day-note {
+        margin-top: 1rem;
+        padding: 0.85rem 1rem;
+        border-radius: 14px;
+        background: rgba(11, 95, 255, 0.12);
+        border: 1px solid rgba(11, 95, 255, 0.2);
+        display: flex;
+        gap: 0.75rem;
+        align-items: flex-start;
+        color: var(--text);
+        font-size: 0.92rem;
+        box-shadow: 0 16px 30px rgba(15, 74, 201, 0.12);
+      }
+
+      .day-note svg {
+        width: 20px;
+        height: 20px;
+        color: var(--accent);
+        flex-shrink: 0;
+        margin-top: 0.1rem;
+      }
+
+      .day-note p {
+        margin: 0;
+      }
+
+      .day-note a {
+        color: var(--accent);
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      .day-note a:hover {
+        text-decoration: underline;
+      }
+
       ul.timeline {
         list-style: none;
         position: relative;
@@ -529,7 +565,7 @@
             <li>
               <strong>16:00 – 19:00</strong>
               <span
-                >Sesiune prezentări ASiS · Garden Party la sediul Soft Net
+                >Sesiune prezentări proiecte · Garden Party la sediul Soft Net
                 Consulting</span
               >
             </li>
@@ -538,6 +574,33 @@
               <span>Cină de bun venit</span>
             </li>
           </ul>
+          <div class="day-note" role="note">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M13 16h-1v-4h-1" />
+              <path d="M12 8h.01" />
+              <circle cx="12" cy="12" r="10" />
+            </svg>
+            <p>
+              Activitățile din prima zi se desfășoară la
+              <strong>Sediul Soft Net Consulting</strong> <br />
+              <a
+                href="https://www.google.com/maps/place/Soft+Net+Consulting/data=!4m2!3m1!19sChIJk38cX3NdRUcReoedzCWTwLU"
+                target="_blank"
+                rel="noopener"
+              >
+                Vezi locația
+              </a>
+            </p>
+          </div>
         </article>
 
         <article class="day">
@@ -578,6 +641,34 @@
               <span>Cină în oraș</span>
             </li>
           </ul>
+          <div class="day-note" role="note">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M13 16h-1v-4h-1" />
+              <path d="M12 8h.01" />
+              <circle cx="12" cy="12" r="10" />
+            </svg>
+            <p>
+              Prezentările de sâmbătă vor avea loc în
+              <strong>spațiul de conferințe al Hotelului Serenity</strong>.
+              <br />
+              <a
+                href="https://www.google.com/maps/place/Hotel+Serenity/data=!4m2!3m1!19sChIJtyKBQQddRUcRXSGdgauhN6E"
+                target="_blank"
+                rel="noopener"
+              >
+                Vezi locația
+              </a>
+            </p>
+          </div>
         </article>
 
         <article class="day">
@@ -601,12 +692,7 @@
       <section class="footnotes">
         <div class="footnotes-header">
           <h3>Prezentări tehnice</h3>
-          <a
-            class="download-link"
-            href="https://teambuilding.asis.ro/"
-            target="_blank"
-            rel="noopener"
-          >
+          <a class="download-link" href="#" rel="noopener">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -637,7 +723,7 @@
           </span>
         </div>
         <ul>
-          <li>Elis pavaje</li>
+          <li>Proiect Elis Pavaje</li>
           <li>Modul construcții lucrări</li>
           <li>Proiect Deltamed</li>
           <li>Modul fluxuri aprobare</li>
