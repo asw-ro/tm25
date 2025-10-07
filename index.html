@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Team Building 2025 · Timișoara</title>
+    <meta name="theme-color" content="#0b5fff" />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="manifest" href="assets/site.webmanifest" />
+    <link rel="apple-touch-icon" href="assets/favicon.svg" />
+    <meta
+      name="description"
+      content="Programul oficial și detaliile Team Building-ului ASW la Timișoara, 17-19 octombrie 2025."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Team Building 2025 · Timișoara · ASW" />
+    <meta
+      property="og:description"
+      content="Descoperă agenda completă, locațiile și prezentările tehnice pentru Team Building-ul ASW din Timișoara."
+    />
+    <meta property="og:url" content="https://www.asw.ro/teambuilding2025" />
+    <meta property="og:image" content="assets/social-card.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <link rel="image_src" href="assets/social-card.svg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Team Building 2025 · ASW" />
+    <meta
+      name="twitter:description"
+      content="Program, logistică și prezentări tehnice pentru Team Building-ul ASW la Timișoara."
+    />
+    <meta name="twitter:image" content="assets/social-card.svg" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+      :root {
+        --bg-gradient: radial-gradient(
+            circle at 10% 16%,
+            rgba(11, 95, 255, 0.14),
+            transparent 52%
+          ),
+          radial-gradient(
+            circle at 82% 18%,
+            rgba(138, 46, 255, 0.16),
+            transparent 58%
+          ),
+          linear-gradient(140deg, #f6f9ff 0%, #eef3ff 46%, #f6f2ff 100%);
+        --card-bg: rgba(255, 255, 255, 0.95);
+        --card-border: rgba(255, 255, 255, 0.68);
+        --accent: #0b5fff;
+        --accent-soft: rgba(11, 95, 255, 0.16);
+        --text: #1a2444;
+        --muted: #65749a;
+        --shadow: 0 20px 48px rgba(21, 58, 171, 0.18);
+        --surface: rgba(255, 255, 255, 0.82);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        background: var(--bg-gradient);
+        color: var(--text);
+        min-height: 100vh;
+        line-height: 1.62;
+        display: flex;
+        justify-content: center;
+      }
+
+      .page {
+        width: min(1080px, 92vw);
+        padding: clamp(2.5rem, 5vw, 4rem) 0 4rem;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: clamp(2.5rem, 6vw, 4rem);
+        background: linear-gradient(
+          150deg,
+          rgba(255, 255, 255, 0.95),
+          rgba(233, 241, 255, 0.95)
+        );
+        border-radius: 28px;
+        padding: clamp(2.6rem, 6vw, 3.4rem);
+        border: 1px solid rgba(11, 95, 255, 0.12);
+        box-shadow: 0 26px 70px rgba(28, 78, 190, 0.18);
+        backdrop-filter: blur(20px);
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.45rem 0.9rem;
+        border-radius: 999px;
+        background: rgba(11, 95, 255, 0.14);
+        color: var(--accent);
+        font-weight: 600;
+        font-size: 0.9rem;
+        letter-spacing: 0.02em;
+      }
+
+      h1 {
+        font-size: clamp(2.4rem, 5vw, 3.4rem);
+        margin: 1.1rem 0 0.35rem;
+        letter-spacing: -0.02em;
+        color: #14254c;
+      }
+
+      .subtitle {
+        color: #5f6fa1;
+        font-size: 1.05rem;
+        font-weight: 500;
+      }
+
+      .countdown {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-top: 1.6rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: 999px;
+        background: rgba(11, 95, 255, 0.12);
+        border: 1px solid rgba(11, 95, 255, 0.22);
+        color: var(--accent);
+        font-weight: 600;
+        font-size: 1rem;
+        letter-spacing: 0.01em;
+        box-shadow: 0 18px 40px rgba(22, 88, 208, 0.2);
+      }
+
+      .card-grid {
+        display: grid;
+        gap: 1.4rem;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        margin-bottom: clamp(2rem, 5vw, 3.4rem);
+      }
+
+      .card {
+        background: var(--card-bg);
+        border-radius: 18px;
+        padding: 1.6rem;
+        border: 1px solid var(--card-border);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(14px);
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        transition: transform 180ms ease, box-shadow 180ms ease;
+      }
+
+      .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 26px 68px rgba(62, 104, 196, 0.24);
+      }
+
+      .card h2 {
+        font-size: 1.18rem;
+        font-weight: 600;
+      }
+
+      .link {
+        color: var(--accent);
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      .link:hover {
+        text-decoration: underline;
+      }
+
+      .program {
+        display: grid;
+        gap: 1.6rem;
+      }
+
+      .day {
+        background: var(--card-bg);
+        border-radius: 22px;
+        padding: 2rem clamp(1.6rem, 4vw, 2.6rem);
+        border: 1px solid var(--card-border);
+        box-shadow: var(--shadow);
+      }
+
+      .day-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 1rem;
+        margin-bottom: 1.2rem;
+      }
+
+      .day h3 {
+        font-size: 1.4rem;
+        letter-spacing: -0.01em;
+      }
+
+      .day span {
+        color: var(--muted);
+        font-weight: 500;
+      }
+
+      ul.timeline {
+        list-style: none;
+        position: relative;
+        padding-left: 1.6rem;
+      }
+
+      ul.timeline::before {
+        content: "";
+        position: absolute;
+        left: 0.48rem;
+        top: 0.2rem;
+        bottom: 0.2rem;
+        width: 2px;
+        background: linear-gradient(
+          180deg,
+          rgba(11, 95, 255, 0.08),
+          rgba(138, 46, 255, 0.32)
+        );
+      }
+
+      ul.timeline li {
+        position: relative;
+        margin-bottom: 1rem;
+        padding-left: 0.6rem;
+      }
+
+      ul.timeline li::before {
+        content: "";
+        position: absolute;
+        left: -1.12rem;
+        top: 0.45rem;
+        width: 10px;
+        height: 10px;
+        background: #fff;
+        border: 2px solid var(--accent);
+        border-radius: 50%;
+      }
+
+      ul.timeline li strong {
+        display: inline-block;
+        font-size: 0.95rem;
+        margin-bottom: 0.15rem;
+        color: var(--accent);
+      }
+
+      .footnotes {
+        margin-top: clamp(2rem, 4vw, 3rem);
+        background: rgba(255, 255, 255, 0.96);
+        border-radius: 18px;
+        padding: clamp(1.6rem, 4vw, 2.2rem);
+        border: 1px solid var(--card-border);
+        box-shadow: var(--shadow);
+      }
+
+      .footnotes h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .footnotes p {
+        color: var(--muted);
+        font-size: 0.95rem;
+        margin-bottom: 0.6rem;
+      }
+
+      .footnotes ul {
+        list-style: disc;
+        list-style-position: outside;
+        padding-left: 1.1rem;
+        columns: 1;
+        gap: 1.2rem;
+      }
+
+      .footnotes ul li {
+        margin-bottom: 0.45rem;
+        break-inside: avoid;
+      }
+
+      .footnotes ul li::marker {
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      .list-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        margin-bottom: 0.9rem;
+        color: var(--accent);
+        font-weight: 600;
+        letter-spacing: 0.01em;
+      }
+
+      .list-status .dots {
+        display: inline-flex;
+        gap: 0.3rem;
+      }
+
+      .list-status .dots span {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+        opacity: 0.35;
+        animation: pulse 1.2s infinite ease-in-out;
+      }
+
+      .list-status .dots span:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      .list-status .dots span:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes pulse {
+        0%,
+        80%,
+        100% {
+          opacity: 0.25;
+          transform: scale(0.9);
+        }
+        40% {
+          opacity: 1;
+          transform: scale(1.08);
+        }
+      }
+
+      footer {
+        margin-top: 3rem;
+        text-align: center;
+        color: #5e6a88;
+        font-size: 0.85rem;
+      }
+
+      @media (max-width: 600px) {
+        .day {
+          padding: 1.6rem;
+        }
+
+        ul.timeline::before {
+          left: 0.38rem;
+        }
+
+        ul.timeline li {
+          padding-left: 0.8rem;
+        }
+      }
+
+      @media (min-width: 780px) {
+        .footnotes ul {
+          columns: 2;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header>
+        <div class="badge">Team Building 2025 · 17–19 octombrie</div>
+        <h1>Timișoara, Hotel Serenity</h1>
+        <p class="subtitle">
+          Program oficial și detalii cheie pentru Team Buildingul Alfa Software
+          2025
+        </p>
+        <div class="countdown" id="countdown" aria-live="polite"></div>
+      </header>
+
+      <section class="card-grid">
+        <article class="card">
+          <h2>Locație</h2>
+          <p>
+            <a
+              class="link"
+              href="https://hotelserenity.ro/"
+              target="_blank"
+              rel="noopener"
+              >Hotel Serenity</a
+            >
+          </p>
+          <p>
+            <a
+              class="link"
+              href="https://www.google.com/maps/place/Hotel+Serenity/data=!4m2!3m1!19sChIJtyKBQQddRUcRXSGdgauhN6E"
+              target="_blank"
+              rel="noopener"
+              >Vezi pe Google Maps</a
+            >
+          </p>
+        </article>
+        <article class="card">
+          <h2>Gazdă activități</h2>
+          <p>
+            <a
+              class="link"
+              href="https://softnetconsulting.ro/"
+              target="_blank"
+              rel="noopener"
+              >Soft Net Consulting</a
+            >
+          </p>
+          <p>
+            <a
+              class="link"
+              href="https://www.google.com/maps/place/Soft+Net+Consulting/data=!4m2!3m1!19sChIJk38cX3NdRUcReoedzCWTwLU"
+              target="_blank"
+              rel="noopener"
+              >Vezi pe Google Maps</a
+            >
+          </p>
+        </article>
+        <article class="card">
+          <h2>Persoană de contact</h2>
+          <p>Natalia Pavel</p>
+          <p>
+            <a class="link" href="tel:+40730020222">+40 730 020 222</a>
+          </p>
+          <p style="color: var(--muted); font-size: 0.92rem">
+            Pentru întrebări logistice sau confirmări de participare.
+          </p>
+        </article>
+      </section>
+
+      <section class="program">
+        <article class="day">
+          <div class="day-header">
+            <h3>Vineri · 17 octombrie</h3>
+            <span>Întâlnire &amp; prezentări de seară</span>
+          </div>
+          <ul class="timeline">
+            <li>
+              <strong>15:00 – 16:00</strong>
+              <span>Sosire &amp; check-in participanți</span>
+            </li>
+            <li>
+              <strong>16:00 – 19:00</strong>
+              <span
+                >Sesiune prezentări ASiS · Garden Party la sediul Soft Net
+                Consulting</span
+              >
+            </li>
+            <li>
+              <strong>19:00</strong>
+              <span>Cină de bun venit</span>
+            </li>
+          </ul>
+        </article>
+
+        <article class="day">
+          <div class="day-header">
+            <h3>Sâmbătă · 18 octombrie</h3>
+            <span>Inovație și explorare urbană</span>
+          </div>
+          <ul class="timeline">
+            <li>
+              <strong>08:30</strong>
+              <span>Mic dejun</span>
+            </li>
+            <li>
+              <strong>09:00 – 11:00</strong>
+              <span>Sesiune prezentări ASiS · noutăți tehnice</span>
+            </li>
+            <li>
+              <strong>11:00</strong>
+              <span>Coffee break &amp; networking</span>
+            </li>
+            <li>
+              <strong>11:00 – 13:00</strong>
+              <span>Continuare prezentări ASiS</span>
+            </li>
+            <li>
+              <strong>14:00</strong>
+              <span>Prânz în oraș</span>
+            </li>
+            <li>
+              <strong>15:00 – 19:00</strong>
+              <span
+                >Tur ghidat al centrului Timișoara &amp; activități de
+                echipă</span
+              >
+            </li>
+            <li>
+              <strong>20:00</strong>
+              <span>Cină în oraș</span>
+            </li>
+          </ul>
+        </article>
+
+        <article class="day">
+          <div class="day-header">
+            <h3>Duminică · 19 octombrie</h3>
+            <span>Relaxare și recapitulare</span>
+          </div>
+          <ul class="timeline">
+            <li>
+              <strong>09:00</strong>
+              <span>Mic dejun</span>
+            </li>
+            <li>
+              <strong>10:00</strong>
+              <span>Activitate propusă &amp; wrap-up</span>
+            </li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="footnotes">
+        <h3>Prezentări tehnice</h3>
+        <p>
+          Selecție de proiecte, soluții noi și demonstrații care vor fi
+          acoperite în sesiunile de prezentări.
+        </p>
+        <div class="list-status">
+          <span>În curs de actualizare</span>
+          <span class="dots" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </div>
+        <ul>
+          <li>Elis pavaje</li>
+          <li>Modul construcții lucrări</li>
+          <li>Proiect Deltamed</li>
+          <li>Alte proiecte Alfa Software</li>
+          <li>Modul fluxuri aprobare</li>
+          <li>Portal documentație</li>
+          <li>Modul „WMS” (EF)</li>
+          <li>Portal salariați</li>
+          <li>Kiosk ASiSerp</li>
+          <li>Integrare Grubtech</li>
+          <li>Operație selecție</li>
+          <li>Formulare DocNativ</li>
+          <li>Fulltext index</li>
+          <li>Mesaje WhatsApp</li>
+          <li>Procesare cu AI</li>
+          <li>ASiS – viziune produs</li>
+          <li>Inteligență artificială</li>
+          <li>Copilot în VSCode</li>
+        </ul>
+      </section>
+
+      <footer>
+        Actualizat la 7 octombrie 2025 · Pentru întrebări logistice contactați
+        Natalia Pavel la +40 730 020 222.
+      </footer>
+    </main>
+    <script>
+      (function () {
+        const countdownEl = document.getElementById("countdown");
+        if (!countdownEl) return;
+
+        const eventDate = new Date("2025-10-17T00:00:00");
+        const today = new Date();
+
+        // Normalize to midnight for accurate day difference
+        eventDate.setHours(0, 0, 0, 0);
+        today.setHours(0, 0, 0, 0);
+
+        const msPerDay = 24 * 60 * 60 * 1000;
+        const diffDays = Math.floor((eventDate - today) / msPerDay);
+
+        let message = "";
+        if (diffDays > 1) {
+          message = `Mai sunt ${diffDays} zile până începem.`;
+        } else if (diffDays === 1) {
+          message = "Mai este 1 zi până începem.";
+        } else if (diffDays === 0) {
+          message = "Începem astăzi!";
+        } else {
+          message = "Team building-ul este în desfășurare sau a fost încheiat.";
+        }
+
+        countdownEl.textContent = message;
+      })();
+    </script>
+  </body>
+</html>
