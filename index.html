@@ -294,6 +294,55 @@
         color: var(--accent);
       }
 
+      /* Stiluri pentru linkurile cu locații din timeline */
+      ul.timeline li a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+        background: linear-gradient(
+          135deg,
+          rgba(11, 95, 255, 0.08),
+          rgba(11, 95, 255, 0.04)
+        );
+        padding: 0.2rem 0.5rem;
+        border-radius: 6px;
+        border: 1px solid rgba(11, 95, 255, 0.15);
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        position: relative;
+      }
+
+      ul.timeline li a:before {
+        content: "📍";
+        font-size: 0.8rem;
+        opacity: 0.8;
+      }
+
+      ul.timeline li a:hover {
+        background: linear-gradient(
+          135deg,
+          rgba(11, 95, 255, 0.12),
+          rgba(11, 95, 255, 0.08)
+        );
+        border-color: rgba(11, 95, 255, 0.25);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(11, 95, 255, 0.15);
+      }
+
+      ul.timeline li a:hover:after {
+        content: " Vezi pe hartă";
+        font-size: 0.75rem;
+        opacity: 0.7;
+        font-weight: 400;
+        margin-left: 0.2rem;
+      }
+
+      ul.timeline li a:active {
+        transform: translateY(0);
+      }
+
       .footnotes {
         margin-top: clamp(2rem, 4vw, 3rem);
         background: rgba(255, 255, 255, 0.96);
@@ -474,6 +523,21 @@
         ul.timeline li {
           padding-left: 0.8rem;
         }
+
+        /* Stiluri mobile pentru linkurile cu locații */
+        ul.timeline li a {
+          padding: 0.15rem 0.4rem;
+          font-size: 0.9rem;
+          border-radius: 4px;
+        }
+
+        ul.timeline li a:before {
+          font-size: 0.75rem;
+        }
+
+        ul.timeline li a:hover:after {
+          display: none; /* Ascunde textul suplimentar pe mobile */
+        }
       }
 
       @media (min-width: 780px) {
@@ -560,18 +624,43 @@
           <ul class="timeline">
             <li>
               <strong>15:00 – 16:00</strong>
-              <span>Sosire &amp; check-in participanți</span>
+              <span
+                >Sosire &amp; check-in participanți la
+                <a
+                  href="https://maps.app.goo.gl/ChRqBpv6KFETK4zw9"
+                  target="_blank"
+                  rel="noopener"
+                  >Hotel Serenity</a
+                ></span
+              >
             </li>
             <li>
               <strong>16:00 – 19:00</strong>
               <span
-                >Sesiune prezentări proiecte · Garden Party la sediul Soft Net
-                Consulting</span
+                >Sesiune prezentări proiecte · Garden Party la sediul
+                <a
+                  href="https://maps.app.goo.gl/zcQnAy8H9ppCnj6u5"
+                  target="_blank"
+                  rel="noopener"
+                  >Soft Net Consulting</a
+                ></span
               >
             </li>
             <li>
               <strong>19:00</strong>
               <span>Cină de bun venit</span>
+            </li>
+            <li>
+              <strong>23:00</strong>
+              <span
+                >Concert de muzică live
+                <a
+                  href="https://maps.app.goo.gl/WQx66Ki3uxbN5wmo8"
+                  target="_blank"
+                  rel="noopener"
+                  >KAI</a
+                >
+              </span>
             </li>
           </ul>
           <div class="day-note" role="note">
@@ -591,14 +680,10 @@
             </svg>
             <p>
               Activitățile din prima zi se desfășoară la
-              <strong>Sediul Soft Net Consulting</strong> <br />
-              <a
-                href="https://www.google.com/maps/place/Soft+Net+Consulting/data=!4m2!3m1!19sChIJk38cX3NdRUcReoedzCWTwLU"
-                target="_blank"
-                rel="noopener"
-              >
-                Vezi locația
-              </a>
+              <strong>Sediul Soft Net Consulting</strong> și
+              <strong>Hotel Serenity</strong> <br />
+              ❗ Concertul de seară la <strong>KAI</strong> nu este decontat de
+              ASW
             </p>
           </div>
         </article>
@@ -615,30 +700,71 @@
             </li>
             <li>
               <strong>09:00 – 11:00</strong>
-              <span>Sesiune prezentări ASiS · noutăți tehnice</span>
+              <span
+                >Sesiune prezentări ASiS · noutăți tehnice la
+                <a
+                  href="https://maps.app.goo.gl/ChRqBpv6KFETK4zw9"
+                  target="_blank"
+                  rel="noopener"
+                  >Hotel Serenity</a
+                ></span
+              >
             </li>
             <li>
               <strong>11:00</strong>
               <span>Coffee break &amp; networking</span>
             </li>
             <li>
-              <strong>11:00 – 13:00</strong>
+              <strong>11:30 – 13:00</strong>
               <span>Continuare prezentări ASiS</span>
             </li>
             <li>
               <strong>14:00</strong>
-              <span>Prânz în oraș</span>
-            </li>
-            <li>
-              <strong>15:00 – 19:00</strong>
               <span
-                >Tur ghidat al centrului Timișoara &amp; activități de
-                echipă</span
+                >Prânz în oraș la
+                <a
+                  href="https://maps.app.goo.gl/spgXE8SNK34Mt9VVA"
+                  target="_blank"
+                  rel="noopener"
+                  >Berăria 700</a
+                ></span
               >
             </li>
             <li>
-              <strong>20:00</strong>
-              <span>Cină în oraș</span>
+              <strong>15:00 – 17:30</strong>
+              <span
+                >Tur ghidat al centrului Timișoara &amp; treasure hunt de la
+                <a
+                  href="https://maps.app.goo.gl/CLGS7VSnWzoUhvdb6"
+                  target="_blank"
+                  rel="noopener"
+                  >Opera Națională Română din Timișoara</a
+                ></span
+              >
+            </li>
+            <li>
+              <strong>18:30</strong>
+              <span
+                >Cină în oraș -
+                <a
+                  href="https://maps.app.goo.gl/WQx66Ki3uxbN5wmo8"
+                  target="_blank"
+                  rel="noopener"
+                  >KAI</a
+                ></span
+              >
+            </li>
+            <li>
+              <strong>21:30</strong>
+              <span
+                >Socializare restaurant
+                <a
+                  href="https://maps.app.goo.gl/LjtP1jQ5VVQYf3uU7"
+                  target="_blank"
+                  rel="noopener"
+                  >Serenity</a
+                >
+              </span>
             </li>
           </ul>
           <div class="day-note" role="note">
@@ -660,13 +786,8 @@
               Prezentările de sâmbătă vor avea loc în
               <strong>spațiul de conferințe al Hotelului Serenity</strong>.
               <br />
-              <a
-                href="https://www.google.com/maps/place/Hotel+Serenity/data=!4m2!3m1!19sChIJtyKBQQddRUcRXSGdgauhN6E"
-                target="_blank"
-                rel="noopener"
-              >
-                Vezi locația
-              </a>
+              ❗ Activitățile de socializare la restaurant Serenity nu sunt
+              decontate de ASW.
             </p>
           </div>
         </article>
@@ -682,8 +803,32 @@
               <span>Mic dejun</span>
             </li>
             <li>
-              <strong>10:00</strong>
-              <span>Activitate propusă &amp; wrap-up</span>
+              <strong>10:10</strong>
+              <span
+                >Plimbare cu vaporașul pe Bega din
+                <a
+                  href="https://maps.app.goo.gl/ZnUUcEKgw35rxSCv5"
+                  target="_blank"
+                  rel="noopener"
+                  >Ion Creangă Children's Park</a
+                ></span
+              >
+            </li>
+            <li>
+              <strong>12:30</strong>
+              <span
+                >Vizită cu ghid la
+                <a
+                  href="https://maps.app.goo.gl/rLYSoRa8deAEzq7v6"
+                  target="_blank"
+                  rel="noopener"
+                  >Muzeul Revoluției</a
+                >
+              </span>
+            </li>
+            <li>
+              <strong>14:00</strong>
+              <span>Plecare spre casă</span>
             </li>
           </ul>
         </article>
@@ -744,7 +889,7 @@
       </section>
 
       <footer>
-        Actualizat la 7 octombrie 2025 · Pentru întrebări logistice contactați
+        Actualizat la 13 octombrie 2025 · Pentru întrebări logistice contactați
         Natalia Pavel la +40 730 020 222.
       </footer>
     </main>
