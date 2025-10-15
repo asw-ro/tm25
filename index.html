@@ -545,6 +545,91 @@
           columns: 2;
         }
       }
+
+      /* Tooltip styles for presenter info */
+      .presentation-item {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .presenter-info {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: rgba(11, 95, 255, 0.1);
+        border: 1px solid rgba(11, 95, 255, 0.3);
+        color: var(--accent);
+        font-size: 0.75rem;
+        font-weight: 600;
+        cursor: help;
+        transition: all 0.2s ease;
+        position: relative;
+        flex-shrink: 0;
+      }
+
+      .presenter-info:hover {
+        background: rgba(11, 95, 255, 0.15);
+        border-color: rgba(11, 95, 255, 0.5);
+        transform: scale(1.1);
+      }
+
+      .presenter-info .tooltip {
+        position: absolute;
+        bottom: 130%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--text);
+        color: white;
+        padding: 0.4rem 0.7rem;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.2s ease;
+        z-index: 1000;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        pointer-events: none;
+      }
+
+      .presenter-info .tooltip::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 4px solid transparent;
+        border-top-color: var(--text);
+      }
+
+      .presenter-info:hover .tooltip {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(-2px);
+      }
+
+      @media (max-width: 600px) {
+        .presentation-item {
+          gap: 0.4rem;
+        }
+
+        .presenter-info {
+          width: 20px;
+          height: 20px;
+          font-size: 0.7rem;
+        }
+
+        .presenter-info .tooltip {
+          font-size: 0.7rem;
+          padding: 0.35rem 0.6rem;
+        }
+      }
     </style>
   </head>
   <body>
@@ -868,28 +953,130 @@
           </span>
         </div>
         <ul>
-          <li>Proiect Elis Pavaje</li>
-          <li>Modul construcții lucrări</li>
-          <li>Proiect Deltamed</li>
-          <li>Modul fluxuri aprobare</li>
-          <li>Portal documentație</li>
-          <li>Modul „WMS”</li>
-          <li>Portal salariați</li>
-          <li>Kiosk ASiSerp</li>
-          <li>Integrare Grubtech</li>
-          <li>Operație selecție</li>
-          <li>Formulare DocNativ</li>
-          <li>SQL full-text index</li>
-          <li>Integrare WhatsApp</li>
-          <li>Procesare documente cu AI</li>
-          <li>ASiS – viziune produs</li>
-          <li>Inteligență artificială</li>
-          <li>Copilot în VSCode</li>
+          <li class="presentation-item">
+            <span>Proiect Elis Pavaje</span>
+            <div class="presenter-info">
+              p
+              <div class="tooltip">Andrei P.</div>
+            </div>
+          </li>
+          <li class="presentation-item">
+            <span>Modul construcții lucrări</span>
+            <div class="presenter-info">
+              p
+              <div class="tooltip">Andrei P.</div>
+            </div>
+          </li>
+          <li class="presentation-item">
+            <span>Proiect Deltamed - frame ASiS</span>
+            <div class="presenter-info">
+              p
+              <div class="tooltip">Vlad H.</div>
+            </div>
+          </li>
+          <li class="presentation-item">
+            <span>Modul fluxuri aprobare</span>
+            <div class="presenter-info">
+              p
+              <div class="tooltip">Ovidiu C.</div>
+            </div>
+          </li>
+          <li class="presentation-item">
+            <span>Portal documentație</span>
+            <div class="presenter-info">
+              p
+              <div class="tooltip">Ovidiu C.</div>
+            </div>
+          </li>
+          <li class="presentation-item">
+            <span>Modul „WMS"</span>
+            <div class="presenter-info">
+              p
+              <div class="tooltip">Ovidiu C.</div>
+            </div>
+          </li>
+          <li class="presentation-item">
+            <span>Portal salariați</span>
+            <div class="presenter-info">
+              p
+              <div class="tooltip">Vlad H.</div>
+            </div>
+          </li>
+          <li class="presentation-item">
+            <span>Kiosk ASiSerp</span>
+            <div class="presenter-info">
+              p
+              <div class="tooltip">Mihai J.</div>
+            </div>
+          </li>
+          <li class="presentation-item">
+            <span>Integrare Grubtech</span>
+            <div class="presenter-info">
+              p
+              <div class="tooltip">Mihai J.</div>
+            </div>
+          </li>
+          <li class="presentation-item">
+            <span>Operație selecție</span>
+            <div class="presenter-info">
+              p
+              <div class="tooltip">Mihai J.</div>
+            </div>
+          </li>
+          <li class="presentation-item">
+            <span>Formulare DocNativ</span>
+            <div class="presenter-info">
+              p
+              <div class="tooltip">Mihai J.</div>
+            </div>
+          </li>
+          <li class="presentation-item">
+            <span>SQL full-text index</span>
+            <div class="presenter-info">
+              p
+              <div class="tooltip">Mihai J.</div>
+            </div>
+          </li>
+          <li class="presentation-item">
+            <span>Integrare WhatsApp</span>
+            <div class="presenter-info">
+              p
+              <div class="tooltip">Tudor B.</div>
+            </div>
+          </li>
+          <li class="presentation-item">
+            <span>Procesare documente cu AI</span>
+            <div class="presenter-info">
+              p
+              <div class="tooltip">Tudor B.</div>
+            </div>
+          </li>
+          <li class="presentation-item">
+            <span>ASiS – viziune produs</span>
+            <div class="presenter-info">
+              p
+              <div class="tooltip">Cristian P.</div>
+            </div>
+          </li>
+          <li class="presentation-item">
+            <span>Inteligență artificială</span>
+            <div class="presenter-info">
+              p
+              <div class="tooltip">Cristian P.</div>
+            </div>
+          </li>
+          <li class="presentation-item">
+            <span>Copilot în VSCode</span>
+            <div class="presenter-info">
+              p
+              <div class="tooltip">Cristian P.</div>
+            </div>
+          </li>
         </ul>
       </section>
 
       <footer>
-        Actualizat la 13 octombrie 2025 · Pentru întrebări logistice contactați
+        Actualizat la 15 octombrie 2025 · Pentru întrebări logistice contactați
         Natalia Pavel la +40 730 020 222.
       </footer>
     </main>
