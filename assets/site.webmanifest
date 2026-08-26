@@ -1,11 +1,11 @@
 {
-  "name": "Teambuilding 2025 - Timișoara",
-  "short_name": "ASW 2025",
-  "description": "Programul oficial și detaliile Team Building-ului ASW la Timișoara, 17-19 octombrie 2025.",
+  "name": "Teambuilding 2026 - Theodora Golf Club",
+  "short_name": "ASW 2026",
+  "description": "Save the date! Team Building-ul ASW 2026 are loc în perioada 2–4 octombrie la Theodora Golf Club, lângă Alba Iulia.",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#f6f9ff",
-  "theme_color": "#0b5fff",
+  "background_color": "#f4faf4",
+  "theme_color": "#1c7c46",
   "icons": [
     {
       "src": "favicon.svg",
