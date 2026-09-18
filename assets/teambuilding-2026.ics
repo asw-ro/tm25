@@ -1,6 +1,6 @@
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//ASW//Team Building 2026//RO
+PRODID:-//ASiS//Team Building 2026//RO
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
 BEGIN:VEVENT
@@ -8,9 +8,9 @@ UID:teambuilding-2026@teambuilding.asis.ro
 DTSTAMP:20260826T000000Z
 DTSTART;VALUE=DATE:20261002
 DTEND;VALUE=DATE:20261005
-SUMMARY:Team Building ASW 2026 · Theodora Golf Club
+SUMMARY:Team Building ASiS 2026 · Theodora Golf Club
 LOCATION:Theodora Golf Club\, lângă Alba Iulia
-DESCRIPTION:Team Building Alfa Software 2026\, 2–4 octombrie\, la Theodo
+DESCRIPTION:Team Building ASiS 2026\, 2–4 octombrie\, la Theodo
  ra Golf Club\, lângă Alba Iulia. Detalii despre program și organizare
   în curând pe https://teambuilding.asis.ro/
 URL:https://teambuilding.asis.ro/
