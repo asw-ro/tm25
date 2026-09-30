@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ASiS 2027 — Mai puțin în ERP. Mai mult cu clientul.</title>
+<meta name="description" content="Prezentarea ASiS 2027 (focus AI) — team building Alfa Software și parteneri ASiS.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600&family=Inter:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+/* Layout: prezentatorul vede scena 16:9 (slide-ul curent) cu bara de control și notițele dedesubt; participantul vede același slide ca un card vertical, cu butoane mari de vot la întrebări. Slide-urile au un aspect fix de brand; cadrul paginii urmează tema. */
+:root{
+  --bg:#EEF3F9; --surface:#FFFFFF; --ink:#1F2A37; --muted:#667788; --line:#D5E3F1; --accent:#1E73BE; --accent-ink:#FFFFFF; --good:#1C8A5A;
+  --s-blue:#1E73BE; --s-navy:#0F2A47; --s-ink:#333333; --s-muted:#7A8B9C; --s-light:#EAF2FA; --s-sky:#7DB6EA; --s-mist:#9FB8D3; --s-green:#1C8A5A; --s-white:#FFFFFF; --s-mid:#5C8FC7;
+  --display:"Inter",Arial,sans-serif; --body:"Hind",Arial,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#081624;--surface:#10233A;--ink:#E6EEF7;--muted:#9FB3C8;--line:#24405F;--accent:#4A9BE0;--accent-ink:#081624;--good:#4CC38A;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#081624;--surface:#10233A;--ink:#E6EEF7;--muted:#9FB3C8;--line:#24405F;--accent:#4A9BE0;--accent-ink:#081624;--good:#4CC38A;color-scheme:dark}
+*{box-sizing:border-box}
+img{max-width:100%}
+[hidden]:not([hidden=until-found i]){display:none!important}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.45;margin:0;padding-inline:16px;padding-block:0 32px;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,32px)}
+.wrap{max-width:1180px;margin:0 auto}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding-block:12px}
+.brand{font-family:var(--display);font-weight:800;font-size:16px;color:var(--ink)}
+.brand b{color:var(--accent)}
+.status{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:14px;flex-wrap:wrap}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--muted)}
+.dot.on{background:var(--good)}
+.btn{font:inherit;font-weight:600;font-size:15px;padding:9px 15px;border-radius:9px;border:0;background:var(--accent);color:var(--accent-ink);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent);border:1.5px solid var(--line)}
+.btn.sm{padding:6px 11px;font-size:13px}
+.btn:disabled{opacity:.4;cursor:default}
+.btn:focus-visible,.opt:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-block:12px}
+.controls .count{margin-left:auto;color:var(--muted);font-size:14px;font-variant-numeric:tabular-nums}
+.notes{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;color:var(--ink);font-size:15px}
+.notes h4{margin:0 0 6px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.hint{color:var(--muted);font-size:13px}
+
+.stage{position:relative;width:100%;aspect-ratio:16/9;container-type:inline-size;border-radius:10px;overflow:hidden;background:var(--s-white);color:var(--s-ink);box-shadow:0 1px 3px rgba(15,42,71,.12),0 10px 30px rgba(15,42,71,.10);
+  --t0:9cqw; --t1:4cqw; --t2:2.2cqw; --tb:1.75cqw; --ts:1.3cqw; --pad:5.5cqw; --gap:2.2cqw; --r:1.2cqw}
+.stage:fullscreen{border-radius:0;width:100vw;height:auto;max-height:100vh;margin:auto}
+.stage.mobile{aspect-ratio:auto;--t0:44px;--t1:26px;--t2:18px;--tb:16px;--ts:13px;--pad:22px;--gap:14px;--r:12px}
+.slide{position:absolute;inset:0;padding:var(--pad) var(--pad) calc(var(--pad)*.9);display:flex;flex-direction:column;gap:var(--gap)}
+.stage.mobile .slide{position:relative;min-height:0}
+.slide.dark{background:var(--s-navy);color:var(--s-white)}
+.slide h2{font-family:var(--display);font-weight:800;font-size:var(--t1);line-height:1.15;color:var(--s-navy);margin:0;text-wrap:balance}
+.slide.dark h2{color:var(--s-white)}
+.slide p{margin:0}
+.foot{position:absolute;left:var(--pad);bottom:2.4cqw;font-size:var(--ts);color:var(--s-muted)}
+.stage.mobile .foot{display:none}
+.slide.dark .foot{color:var(--s-mist)}
+.hero{justify-content:center}
+.hero .big{font-family:var(--display);font-weight:800;font-size:var(--t0);line-height:1;color:var(--s-white)}
+.hero .sub{font-family:var(--display);font-weight:500;font-size:calc(var(--t1)*.9);color:var(--s-sky)}
+.hero .ctx{font-size:var(--t2);color:var(--s-mist)}
+.secnum{font-family:var(--display);font-weight:800;font-size:calc(var(--t0)*1.4);line-height:1;color:var(--s-blue)}
+.secsub{font-size:var(--t2);color:var(--s-mist)}
+.cards{display:grid;gap:var(--gap);grid-template-columns:repeat(var(--n,3),minmax(0,1fr));flex:1;align-content:start}
+.stage.mobile .cards{grid-template-columns:1fr}
+.card{background:var(--s-light);border-radius:var(--r);padding:calc(var(--pad)*.45);display:flex;flex-direction:column;gap:calc(var(--gap)*.5);min-width:0}
+.card.hi{background:var(--s-blue);color:var(--s-white)}
+.card h3{font-family:var(--display);font-weight:700;font-size:var(--t2);color:var(--s-navy);margin:0;line-height:1.2}
+.card.hi h3{color:var(--s-white)}
+.card p{font-size:var(--tb)}
+.num{width:calc(var(--t2)*1.9);height:calc(var(--t2)*1.9);display:grid;place-items:center;background:var(--s-blue);color:var(--s-white);font-family:var(--display);font-weight:700;font-size:var(--t2);border-radius:.4cqw}
+.stage.mobile .num{border-radius:6px}
+.card.hi .num{background:var(--s-white);color:var(--s-blue)}
+.tag{align-self:flex-start;background:var(--s-white);color:var(--s-blue);font-weight:600;font-size:var(--ts);padding:.1em .7em;border-radius:99px}
+.agenda{list-style:none;margin:0;padding:0;display:grid;gap:calc(var(--gap)*.55)}
+.agenda li{display:grid;grid-template-columns:auto 1fr auto;gap:var(--gap);align-items:center;font-size:var(--t2)}
+.agenda .c{width:calc(var(--t2)*1.8);height:calc(var(--t2)*1.8);border-radius:50%;border:2px solid var(--s-blue);display:grid;place-items:center;color:var(--s-blue);font-weight:700;font-family:var(--display);font-size:var(--tb)}
+.agenda li.done .c{background:var(--s-blue);color:var(--s-white)}
+.agenda li.done span:nth-child(2){color:var(--s-muted)}
+.agenda li.cur span:nth-child(2){font-weight:700;color:var(--s-navy)}
+.agenda .m{color:var(--s-muted);font-size:var(--tb);font-variant-numeric:tabular-nums}
+.tl{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:calc(var(--gap)*.8);position:relative;flex:1;align-content:start}
+.tl::before{content:"";position:absolute;left:10%;right:10%;top:calc(var(--tb)*2.6);height:.3cqw;background:var(--s-blue)}
+.tl .st{display:grid;gap:calc(var(--gap)*.5);justify-items:center;align-content:start}
+.tl .w{font-family:var(--display);font-weight:700;font-size:var(--tb);color:var(--s-muted)}
+.tl .d{width:2.2cqw;height:2.2cqw;border-radius:50%;border:.3cqw solid var(--s-blue);background:var(--s-white);position:relative}
+.tl .now .w{color:var(--s-blue)} .tl .now .d{background:var(--s-blue)}
+.tl .card{width:100%;min-height:16cqw}
+.stage.mobile .tl{grid-template-columns:1fr}.stage.mobile .tl::before,.stage.mobile .tl .d{display:none}.stage.mobile .tl .st{justify-items:start}.stage.mobile .tl .card{min-height:0}
+.stats{display:grid;grid-template-columns:1fr 2fr;gap:var(--gap);flex:1}
+.stage.mobile .stats{grid-template-columns:1fr}
+.stats .bign{font-family:var(--display);font-weight:800;font-size:calc(var(--t0)*1.05);color:var(--s-white);line-height:1}
+.mini{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:calc(var(--gap)*.7)}
+.mini div{background:var(--s-light);border-radius:var(--r);padding:calc(var(--pad)*.3);display:flex;gap:calc(var(--gap)*.7);align-items:center;font-size:var(--tb)}
+.mini b{font-family:var(--display);font-size:calc(var(--t1)*.85);color:var(--s-blue)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:calc(var(--gap)*1.5);flex:1}
+.stage.mobile .two{grid-template-columns:1fr}
+.blist{margin:0;padding-left:1.2em;display:grid;gap:calc(var(--gap)*.6);font-size:var(--t2);align-content:start}
+.ph{border:.2cqw dashed var(--s-blue);background:var(--s-light);border-radius:var(--r);display:grid;place-items:center;text-align:center;color:var(--s-blue);font-weight:600;font-size:var(--t2);padding:var(--gap)}
+.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:var(--gap);align-items:center}
+.stage.mobile .flow{grid-template-columns:1fr}.stage.mobile .flow .arr{transform:rotate(90deg);justify-self:center}
+.flow .card{text-align:center;align-items:center}
+.arr{font-size:var(--t1);color:var(--s-blue);font-weight:700}
+.feat{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gap)}
+.stage.mobile .feat{grid-template-columns:1fr}
+.feat h3{font-family:var(--display);font-size:var(--t2);color:var(--s-navy);margin:0 0 .3em}
+.feat p{font-size:var(--tb)}
+.tbl{overflow-x:auto}
+.tbl table{width:100%;border-collapse:collapse;font-size:var(--tb)}
+.tbl th{background:var(--s-navy);color:var(--s-white);text-align:left;padding:.6em .7em;font-family:var(--display);font-weight:600}
+.tbl td{padding:.6em .7em;border-bottom:1px solid #D5E3F1}
+.tbl td:first-child{background:var(--s-blue);color:var(--s-white);font-weight:700;white-space:nowrap}
+.tbl tr.hi td:not(:first-child){background:var(--s-light)}
+.tbl tr.lo td:first-child{background:var(--s-mid)}
+.it{font-style:italic;color:var(--s-navy);font-size:var(--tb)}
+.qrwrap{display:grid;grid-template-columns:1.3fr 1fr;gap:var(--gap);align-items:center;flex:1}
+.stage.mobile .qrwrap{grid-template-columns:1fr}
+.qrbox{background:#fff;border-radius:var(--r);padding:1cqw;justify-self:center;width:min(30cqw,100%)}
+.qrbox img,.qrbox canvas{width:100%!important;height:auto!important;display:block}
+.stage.mobile .qrbox{display:none}
+.closing .big{font-family:var(--display);font-weight:800;font-size:calc(var(--t0)*.62);line-height:1.1;color:var(--s-white)}
+.closing .sub{font-size:var(--t2);color:var(--s-sky)}
+
+.poll .ptag{align-self:flex-start;font-size:var(--ts);font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:var(--s-light);color:var(--s-blue);padding:.2em .8em;border-radius:99px}
+.poll .ptag.live{background:#E3F4EC;color:var(--s-green)}
+.poll h2{font-size:var(--t1)}
+.pbody{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:calc(var(--gap)*1.5);flex:1;min-height:0}
+.stage.mobile .pbody{grid-template-columns:1fr}
+.pbody .qrbox{width:17cqw;align-self:start}
+.bars{display:grid;gap:calc(var(--gap)*.45);align-content:start}
+.bar .lab{display:flex;justify-content:space-between;gap:1em;font-weight:600;font-size:var(--tb);margin-bottom:.2em}
+.bar .lab span:last-child{font-variant-numeric:tabular-nums;color:var(--s-muted);font-weight:500}
+.track{height:calc(var(--t2)*1.05);background:var(--s-light);border-radius:.5cqw;overflow:hidden}
+.stage.mobile .track{border-radius:6px}
+.fill{height:100%;background:var(--s-blue);transition:width .5s ease;min-width:2px}
+.bar.ok .fill{background:var(--s-green)}
+.bar.ok .lab span:first-child{color:var(--s-green)}
+.cloud{display:flex;flex-wrap:wrap;gap:.3em .8em;align-items:baseline;justify-content:center;align-content:center}
+.cloud span{font-family:var(--display);font-weight:700;color:var(--s-blue);line-height:1.1}
+.cloud span:nth-child(3n+2){color:var(--s-navy)}
+.olist{list-style:none;margin:0;padding:0;display:grid;gap:calc(var(--gap)*.45);align-content:start;font-size:var(--tb)}
+.olist li{background:var(--s-light);border-radius:var(--r);padding:.6em .9em}
+.pnote{font-size:var(--tb);color:var(--s-muted)}
+.opts{display:grid;gap:10px}
+.opt{font:inherit;font-size:18px;font-weight:600;text-align:left;padding:15px 16px;border-radius:12px;border:2px solid #D5E3F1;background:#fff;color:#1F2A37;cursor:pointer;min-height:56px}
+.opt[aria-pressed="true"]{border-color:var(--s-blue);background:var(--s-light)}
+.opt:disabled{opacity:.7;cursor:default}
+.trow{display:flex;gap:10px;flex-wrap:wrap}
+.trow input{flex:1 1 200px;min-width:0;font:inherit;font-size:18px;padding:13px 14px;border-radius:12px;border:2px solid #D5E3F1;background:#fff;color:#1F2A37}
+.trow .btn{background:var(--s-blue);color:#fff}
+@media (prefers-reduced-motion:reduce){.fill{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand">ASiS <b>2027</b></div>
+    <div class="status"><span class="dot" id="dot"></span><span id="conn">Se conectează…</span><span id="sw"></span></div>
+  </div>
+  <div id="stage" class="stage"></div>
+  <div id="below"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+const JOIN_URL = "https://claude.ai/artifact/VjmWgaJf7t41KAq8Ve8HSJ";
+const PARTS = [["Un an de progres: ce am livrat","10 min"],["Ce construim: feature-uri în lucru","25 min"],["Demo-uri live cu Claude","30 min"],["Ce înseamnă pentru parteneri","15 min"],["Concluzii și întrebări","10 min"]];
+const POLLS = {
+  q1:{type:"words", label:"Nor de cuvinte", text:"Un singur cuvânt: ce vă ia cel mai mult timp în ERP azi?"},
+  q2:{type:"quiz", label:"Quiz", text:"Câte proiecte reale am lucrat cu Claude în echipă?", opts:["5","8","13+","20"], correct:"13+"},
+  q3:{type:"poll", label:"Sondaj", text:"Ce feature ați vrea primul la clienții voștri?", opts:["Portaluri generate cu AI","Securitate nouă","Fișiere în afara SQL","Machete de tip link"]},
+  q4:{type:"poll", label:"Pariu", text:"Cât credeți că durează documentarea unui modul ASiS cu Claude?", opts:["1 zi","2 ore","30 min","10 min"], later:"Răspunsul îl vedeți la demo."},
+  q5:{type:"quiz", label:"Quiz", text:"În cât timp primește răspuns un incident P1?", opts:["30 min","1 h","2 h","4 h"], correct:"1 h"},
+  q6:{type:"open", label:"Întrebare deschisă", text:"Ce ați vrea să facă ASiS pentru voi în 2027?"}
+};
+const S = [
+ {k:"title", notes:"Deschidere. Mesajul central al anului: AI-ul din ASiS scurtează timpul petrecut în sistem și îl mută lângă client. „Clientul” e dublu: pentru parteneri, firma căreia îi implementează; pentru utilizatori, clienții propriei firme."},
+ {k:"central", notes:"SPEECH DE ÎNCEPUT (~3 min). Concurența vinde AI-ul ca funcție: SAP „înțelege, raționează, execută”, Oracle numără 600+ agenți, Senior Software promite „AI Powered Performance”. Nimeni nu spune ce primește omul. Noi măsurăm altceva: fiecare minut scos din meniuri, rapoarte și documentație e un minut dat înapoi clientului. Aici pui un exemplu propriu din implementări."},
+ {k:"join", notes:"Participanții scanează codul, intră cu contul claude.ai invitat și țin pagina deschisă. Treci la slide-ul următor ca să pornești prima întrebare."},
+ {k:"poll", q:"q1", notes:"Nor de cuvinte. Lasă 1–2 minute, apoi arată rezultatul și leagă-l de „Mai puțin în ERP”."},
+ {k:"agenda", done:0, notes:"Agenda: 1h30, cinci părți."},
+ {k:"section", n:1, t:"Un an de progres", sub:"Anul trecut v-am spus de ce. Anul acesta vă arătăm ce.", notes:"~10 min. Legătura cu anul trecut: atunci am explicat de ce AI; acum arătăm rezultate concrete."},
+ {k:"timeline", notes:"Datele și reperele sunt propuneri; verifică lunile reale. Ultimul reper (azi) face trecerea spre demo-uri."},
+ {k:"stats", notes:"Cifre din proiectele reale lucrate cu Claude (numărate din august 2026, deci minime). Fără nume de clienți; exemple la întrebări: reconcilierea balanței (711), ofertele cu fazare și SaaS, modelul Power BI Vânzări."},
+ {k:"poll", q:"q2", notes:"Quiz: răspunsul corect e 13+. Tocmai l-au văzut pe slide-ul anterior."},
+ {k:"agenda", done:1, notes:""},
+ {k:"section", n:2, t:"Ce construim", sub:"Feature-uri în lucru pentru ASiS 2027", notes:"~25 min. Pentru fiecare direcție: problema, ce am făcut, ce urmează."},
+ {k:"features", notes:"Macheta de tip link: tip nou de machetă, proiectat de la început ca să fie construit integral cu AI. Deschide un link (aplicație externă generată cu AI), iar rezultatul interacțiunii revine prin callback și se scrie înapoi în interfața ASiS."},
+ {k:"portal", notes:"Aici arătăm Portalul Salariați refăcut (dev.asw.ro/ria), înainte și după. Punctăm viteza: de la cerere la prototip."},
+ {k:"poll", q:"q3", notes:"Sondaj: ce vor partenerii primul. Rezultatul e util și pentru planificare."},
+ {k:"agenda", done:2, notes:""},
+ {k:"section", n:3, t:"Demo-uri live cu Claude", sub:"Trei situații din munca de zi cu zi", notes:"~30 min, câte ~10 min pe demo. Plan B: capturi sau înregistrare dacă nu merge conexiunea."},
+ {k:"poll", q:"q4", notes:"Pariu înainte de demo. Arată rezultatul, apoi dezvăluie timpul real în demo-ul de documentație."},
+ {k:"demos", notes:"Pentru fiecare demo: situația, ce cerem lui Claude, ce iese, cât timp am economisit."},
+ {k:"agenda", done:3, notes:""},
+ {k:"section", n:4, t:"Ce înseamnă pentru parteneri", sub:"Implementare mai rapidă, clienți mai mulțumiți", notes:"~15 min. Public mixt: câte un mesaj pentru fiecare rol."},
+ {k:"roles", notes:"Invităm partenerii să spună ce ar vrea să primească primul."},
+ {k:"support", notes:"Cererea pornește din ASiS. Telefonul e disponibil în funcție de SLA. Partenerii pot prelua cererile clienților lor și escaladează doar la nevoie."},
+ {k:"sla", notes:"Valori din modelul de SLA BAU (P1–P4). Orar business L–V 07:00–22:00; în intervalele light business se adaugă 1/2 h. P1 și P2 sunt tratate și în afara orelor business. Escaladare automată la management pentru P1/P2 nerezolvate în 4 h."},
+ {k:"poll", q:"q5", notes:"Quiz: răspunsul corect e 1 h."},
+ {k:"agenda", done:4, notes:""},
+ {k:"poll", q:"q6", notes:"Întrebare deschisă. Citește câteva răspunsuri cu voce tare și pornește discuția."},
+ {k:"closing", notes:"~10 min. Recapitulare în trei idei și întrebări."}
+];
+
+const $ = s => document.querySelector(s);
+function h(tag, attrs, ...kids){
+  const e = document.createElement(tag);
+  if (attrs) for (const k in attrs){ if (k==="class") e.className=attrs[k]; else if (k==="style") e.setAttribute("style",attrs[k]); else if (k.startsWith("on")) e.addEventListener(k.slice(2), attrs[k]); else e.setAttribute(k, attrs[k]); }
+  for (const c of kids.flat()){ if (c==null || c===false) continue; e.append(c instanceof Node ? c : document.createTextNode(String(c))); }
+  return e;
+}
+const clean = (v,n) => String(v ?? "").replace(/[\u0000-\u001f\u007f-\u009f​-‏‪-‮⁠-⁤﻿]/g,"").trim().slice(0,n);
+const card = (t,p,o={}) => h("div",{class:"card"+(o.hi?" hi":"")}, o.num!=null && h("div",{class:"num"},o.num), o.tag && h("span",{class:"tag"},o.tag), h("h3",null,t), p && h("p",null,p));
+
+let standalone=false; let db=null, room=null, user=null, isOwner=false, presenter=false, myId=null, showNotes=true;
+let state = {s:0, phase:"vote"}, tally = {};
+let mine = {}; try { mine = JSON.parse(localStorage.getItem("asis27-votes")||"{}")||{}; } catch(e){ mine={}; }
+const saveMine = () => { try { localStorage.setItem("asis27-votes", JSON.stringify(mine)); } catch(e){} };
+
+function countsFor(qid){
+  const q = POLLS[qid], c={}; let n=0;
+  for (const k in tally){ const v = tally[k] && tally[k][qid]; if (typeof v==="string" && v){ n++; c[v]=(c[v]||0)+1; } }
+  return {c,n,q};
+}
+function results(qid){
+  const {c,n,q} = countsFor(qid);
+  if (standalone) return h("p",{class:"pnote"},"Votul live rulează în pagina claude.ai: scanați codul QR."); if (!n) return h("p",{class:"pnote"}, state.phase==="vote" ? "Așteptăm răspunsurile…" : "Nu au venit răspunsuri.");
+  const revealed = state.phase==="reveal";
+  if (q.opts){
+    return h("div",{class:"bars"}, q.opts.map(o=>{ const v=c[o]||0, pct=Math.round(v*100/n); const f=h("div",{class:"fill"}); f.style.width=pct+"%";
+      return h("div",{class:"bar"+(revealed && q.correct===o?" ok":"")}, h("div",{class:"lab"}, h("span",null, o+(revealed && q.correct===o?"  ✓":"")), h("span",null, v+" · "+pct+"%")), h("div",{class:"track"}, f)); }),
+      h("p",{class:"pnote"}, (n===1?"1 răspuns":n+" răspunsuri") + (revealed && q.later ? " · "+q.later : "")));
+  }
+  const items = Object.entries(c).sort((a,b)=>b[1]-a[1]);
+  if (q.type==="words"){
+    const max = items[0][1];
+    return h("div",{class:"cloud"}, items.slice(0,40).map(([w,v])=>{ const s=h("span",null,w); s.style.fontSize = "calc(var(--t2) * "+(0.9+2.6*(v/max)).toFixed(2)+")"; return s; }));
+  }
+  return h("ul",{class:"olist"}, items.slice(0,14).map(([t,v])=>h("li",null, v>1 ? t+"  ×"+v : t)));
+}
+function qr(){ const b = h("div",{class:"qrbox"}); setTimeout(()=>{ try{ if (window.QRCode) new QRCode(b,{text:JOIN_URL,width:256,height:256}); }catch(e){} },0); return b; }
+const foot = () => h("div",{class:"foot"},"ASiS 2027");
+
+function slideEl(i){
+  const sd = S[i], k = sd.k;
+  if (k==="title") return h("div",{class:"slide dark hero"}, h("div",{class:"big"},"ASiS 2027"), h("div",{class:"sub"},"Mai puțin în ERP. Mai mult cu clientul."), h("div",{class:"ctx"},"Team building Alfa Software și parteneri ASiS"), foot());
+  if (k==="central") return h("div",{class:"slide"}, h("h2",null,"Alții numără agenți AI. Noi numărăm orele redate clientului."), h("div",{class:"cards",style:"--n:2"}, card("Piața vorbește despre AI","Agenți, predicții, automatizări. Tehnologia e în centru."), card("ASiS vorbește despre timp","Ore scoase din sistem și redate echipei și clientului.",{hi:1})), foot());
+  if (k==="join") return h("div",{class:"slide"}, h("h2",null,"Votați live de pe telefon"), h("div",{class:"qrwrap"}, h("ul",{class:"blist"}, h("li",null,"Scanați codul cu camera telefonului"), h("li",null,"Intrați cu contul claude.ai pe care ați primit invitația"), h("li",null,"Țineți pagina deschisă: întrebările apar singure")), qr()), foot());
+  if (k==="agenda") return h("div",{class:"slide"}, h("h2",null,"Agenda"), h("ol",{class:"agenda"}, PARTS.map((p,j)=>h("li",{class: j<sd.done?"done":(j===sd.done?"cur":"")}, h("span",{class:"c"}, j<sd.done?"✓":String(j+1)), h("span",null,p[0]), h("span",{class:"m"},p[1])))), foot());
+  if (k==="section") return h("div",{class:"slide dark hero"}, h("div",{class:"secnum"},String(sd.n)), h("h2",null,sd.t), h("div",{class:"secsub"},sd.sub), foot());
+  if (k==="timeline"){ const m=[["T4 2025","Direcția AI","Prezentată partenerilor la team building-ul trecut"],["T1 2026","Primele teste","Claude în echipă: documentație și analiză SQL"],["T2 2026","Fundația","Securitate nouă și fișiere în afara SQL, în lucru"],["T3 2026","Primele produse","Portal Salariați refăcut, ofertare automatizată"],["Azi","Demo live","Ce vedeți azi rulează deja"]];
+    return h("div",{class:"slide"}, h("h2",null,"Un an: de la idee la produs"), h("div",{class:"tl"}, m.map((x,j)=>h("div",{class:"st"+(j===4?" now":"")}, h("div",{class:"w"},x[0]), h("div",{class:"d"}), card(x[1],x[2],{hi:j===4})))), foot()); }
+  if (k==="stats") return h("div",{class:"slide"}, h("h2",null,"Claude în echipă, în cifre"), h("div",{class:"stats"}, h("div",{class:"card hi"}, h("div",{class:"bign"},"13+"), h("p",null,"proiecte reale lucrate cu Claude, nu teste de laborator")), h("div",{class:"mini"}, [["3","oferte ASiS ERP"],["2","contracte și SLA"],["2","arhitecturi SQL Server"],["2","automatizări și produs"],["2","training și prezentări"],["2","Power BI și analiză financiară"]].map(x=>h("div",null,h("b",null,x[0]),x[1])))), foot());
+  if (k==="features") return h("div",{class:"slide"}, h("h2",null,"Feature-uri în lucru"), h("div",{class:"cards",style:"--n:4"}, card("Portaluri generate cu AI","Portal Salariați și alte portaluri, generate rapid și adaptate pe client.",{num:1}), card("Securitate nouă","Model de securitate reînnoit pentru ASiS.",{num:2}), card("Fișiere în afara SQL","Documentele ies din baza de date: baze mai mici, backup mai rapid.",{num:3}), card("Machete de tip link","Construite 100% cu AI: deschid un link, primesc rezultatul prin callback și îl scriu în interfață.",{num:4,hi:1,tag:"Nou"})), foot());
+  if (k==="portal") return h("div",{class:"slide"}, h("h2",null,"Portaluri generate cu AI"), h("div",{class:"two"}, h("ul",{class:"blist"}, h("li",null,"De la cerere la prototip funcțional în zile"), h("li",null,"Interfață modernă, aceeași logică ASiS în spate"), h("li",null,"Adaptare rapidă pe nevoile fiecărui client")), h("div",{class:"ph"},"Demo live Portal Salariați", h("br"), "Before & After")), foot());
+  if (k==="demos") return h("div",{class:"slide"}, h("h2",null,"Ce arătăm"), h("div",{class:"cards"}, card("Documentație cu extensia Chrome","Claude citește ecranul ASiS și scrie documentația modulului.",{num:1}), card("Analiză Query Store SQL","Claude găsește interogările lente și propune remedii.",{num:2}), card("Rapoarte Power BI","Din întrebare în raport, fără să scriem DAX de mână.",{num:3})), foot());
+  if (k==="roles") return h("div",{class:"slide"}, h("h2",null,"Ce câștigă fiecare rol"), h("div",{class:"cards"}, card("Tehnici","Mai puțin timp pe documentare și diagnostic.",{num:1}), card("Economici","Rapoarte și analize la cerere, fără dependență de IT.",{num:2}), card("Project manageri","Livrări mai predictibile, cicluri de feedback mai scurte.",{num:3})), foot());
+  if (k==="support") return h("div",{class:"slide"}, h("h2",null,"Noul suport: direct din ASiS"), h("div",{class:"flow"}, card("Utilizator","lucrează în ASiS"), h("div",{class:"arr"},"→"), card("Partener","preia și rezolvă (opțional)",{hi:1}), h("div",{class:"arr"},"→"), card("Alfa Software","suport de specialitate")), h("div",{class:"feat"}, h("div",null,h("h3",null,"Direct din ASiS"),h("p",null,"Cererea de suport pornește din aplicație, unde apare problema.")), h("div",null,h("h3",null,"Telefon după SLA"),h("p",null,"Canalul telefonic e disponibil în funcție de nivelul SLA al clientului.")), h("div",null,h("h3",null,"Rutare prin parteneri"),h("p",null,"Partenerul își preia clienții și escaladează la Alfa Software doar la nevoie."))), foot());
+  if (k==="sla"){ const r=[["P1 – Critic","Sistem oprit, nu se poate lucra","1 h","4 h","Telefon + ASiS","hi"],["P2 – Major","Funcție cheie blocată, fără workaround","2 h","8 h","Telefon + ASiS","hi"],["P3 – Moderat","Funcție afectată, există workaround","4 h","2 zile lucr.","Direct din ASiS","lo"],["P4 – Minor","Afișare, interogare, informație","8 h","4 zile lucr.","Direct din ASiS","lo"]];
+    return h("div",{class:"slide"}, h("h2",null,"Suport după prioritate și SLA"), h("div",{class:"tbl"}, h("table",null, h("tr",null, ["Prioritate","Situație","Răspuns","Rezolvare","Canal"].map(x=>h("th",null,x))), r.map(x=>h("tr",{class:x[5]}, x.slice(0,5).map(y=>h("td",null,y)))))), h("p",{class:"it"},"Escaladare: helpdesk (partener) → suport tehnic → dezvoltare. P1/P2 nerezolvate în 4 h ajung automat la management."), foot()); }
+  if (k==="closing") return h("div",{class:"slide dark hero closing"}, h("div",{class:"big"},"Mai puțin în ERP.",h("br"),"Mai mult cu clientul."), h("div",{class:"sub"},"Întrebări și idei de la parteneri"), foot());
+  if (k==="poll") return pollSlide(sd.q);
+  return h("div",{class:"slide"});
+}
+
+function pollSlide(qid){
+  const q = POLLS[qid], live = state.phase==="vote";
+  const tag = h("span",{class:"ptag"+(live?" live":"")}, (live?"Vot deschis":"Rezultate")+" · "+q.label);
+  if (presenter){
+    return h("div",{class:"slide poll"}, tag, h("h2",null,q.text), h("div",{class:"pbody"}, h("div",{style:"display:grid;gap:var(--gap);min-width:0;align-content:start"}, results(qid)), qr()), foot());
+  }
+  const box = h("div",{class:"slide poll"}, tag, h("h2",null,q.text));
+  const can = live && !!room;
+  if (live){
+    if (q.opts){
+      box.append(h("div",{class:"opts"}, q.opts.map(o=>{ const b=h("button",{class:"opt",type:"button","aria-pressed":mine[qid]===o?"true":"false",onclick:()=>vote(qid,o)},o); b.disabled=!can; return b; })));
+    } else {
+      const inp = h("input",{id:"in-"+qid, maxlength: q.type==="words"?"30":"140", placeholder: q.type==="words"?"Un cuvânt":"Scrie răspunsul tău", "aria-label":q.text}); inp.value = mine[qid]||""; inp.disabled=!can;
+      const f = h("form",{class:"trow",onsubmit:e=>{ e.preventDefault(); let v=clean(inp.value, q.type==="words"?30:140); if (q.type==="words") v=v.split(/\s+/)[0].toLowerCase(); if (v) vote(qid,v); }}, inp, h("button",{class:"btn",type:"submit"}, mine[qid]?"Actualizează":"Trimite"));
+      if (!can) f.querySelector("button").disabled=true;
+      box.append(f);
+    }
+    box.append(h("p",{class:"pnote"}, !room ? "Nu te-am putut conecta la vot. Verifică dacă ești autentificat în claude.ai cu adresa pe care ai primit invitația." : (mine[qid] ? "Răspunsul tău a fost trimis. Îl poți schimba până se închide votul." : "Alege un răspuns.")));
+  } else {
+    box.append(results(qid));
+  }
+  return box;
+}
+
+function participants(){ return room ? room.peers().filter(p=>p.kind==="viewer" && !p.sameTab).length : 0; }
+
+function render(){
+  const stage = $("#stage");
+  stage.classList.toggle("mobile", !presenter);
+  stage.replaceChildren(slideEl(state.s));
+  const below = $("#below"); below.replaceChildren();
+  if (presenter){
+    const sd = S[state.s], isPoll = sd.k==="poll";
+    const prev = h("button",{class:"btn ghost",type:"button",onclick:()=>go(state.s-1)},"← Înapoi"); prev.disabled = state.s===0;
+    const next = h("button",{class:"btn",type:"button",onclick:()=>go(state.s+1)},"Înainte →"); next.disabled = state.s===S.length-1;
+    const ctr = h("div",{class:"controls"}, prev, next);
+    if (isPoll && !standalone) ctr.append(h("button",{class:"btn ghost",type:"button",onclick:()=>setState({s:state.s, phase: state.phase==="vote"?"reveal":"vote"})}, state.phase==="vote" ? "Închide votul și arată rezultatul" : "Redeschide votul"));
+    ctr.append(h("button",{class:"btn ghost sm",type:"button",onclick:()=>{ if (stage.requestFullscreen) stage.requestFullscreen().catch(()=>{}); }},"Ecran complet"));
+    ctr.append(h("button",{class:"btn ghost sm",type:"button",onclick:()=>{ showNotes=!showNotes; render(); }}, showNotes?"Ascunde notițele":"Arată notițele"));
+    ctr.append(h("span",{class:"count"}, "Slide "+(state.s+1)+" / "+S.length+" · conectați: "+participants() + (isPoll ? " · răspunsuri: "+countsFor(sd.q).n : "")));
+    below.append(ctr);
+    if (showNotes && sd.notes) below.append(h("div",{class:"notes"}, h("h4",null,"Notițe"), sd.notes));
+    below.append(h("p",{class:"hint"},"Taste: ← → pentru slide-uri, F pentru ecran complet. Participanții văd pe telefon slide-ul pe care ești."));
+  } else {
+    below.append(h("p",{class:"hint",style:"margin-top:12px"}, "Urmărești prezentarea în direct: slide-ul se schimbă singur, iar la întrebări poți vota de aici."));
+  }
+}
+
+let writing = Promise.resolve();
+function setState(n){
+  state = {s:n.s, phase:n.phase}; render();
+  if (db && isOwner) writing = writing.then(()=>db.doc("live/state").set({s:n.s, phase:n.phase, at:Date.now()})).catch(()=>{});
+}
+function go(i){ if (i<0 || i>=S.length) return; setState({s:i, phase:"vote"}); if (room) absorb(room.peers()); }
+
+async function vote(qid,val){ mine[qid]=val; saveMine(); render(); if (room){ try{ await room.presence({a:mine, uid:myId}); }catch(e){} } }
+
+let dirty=false, timer=null, busy=false;
+function scheduleTally(){
+  dirty=true; if (timer) return;
+  timer = setTimeout(async()=>{ timer=null; if (!db || busy){ if (dirty) scheduleTally(); return; } busy=true; dirty=false;
+    try{ await db.doc("live/tally").set({v:tally}); }catch(e){} busy=false; if (dirty) scheduleTally(); }, 1500);
+}
+function absorb(peers){
+  const sd = S[state.s]; if (sd.k!=="poll" || state.phase!=="vote") return;
+  const qid = sd.q, q = POLLS[qid]; let changed=false;
+  for (const p of peers){
+    if (p.kind!=="viewer" || p.sameTab) continue;
+    const a = p.presence && p.presence.a; if (!a || typeof a!=="object") continue;
+    const raw = a[qid]; if (typeof raw!=="string") continue;
+    let v = clean(raw, q.type==="words"?30:140);
+    if (q.opts && !q.opts.includes(v)) continue;
+    if (q.type==="words") v = v.split(/\s+/)[0].toLowerCase();
+    if (!v) continue;
+    const key = clean(p.by || (typeof p.presence.uid==="string" && p.presence.uid) || ("p-"+p.peer), 80);
+    if (!tally[key] || tally[key][qid]!==v){ tally[key] = Object.assign({}, tally[key]||{}, {[qid]:v}); changed=true; }
+  }
+  if (changed){ scheduleTally(); render(); }
+}
+
+document.addEventListener("keydown", e=>{
+  if (!presenter || e.target.closest("input,textarea")) return;
+  if (e.key==="ArrowRight" || e.key==="PageDown" || e.key===" "){ e.preventDefault(); go(state.s+1); }
+  else if (e.key==="ArrowLeft" || e.key==="PageUp"){ e.preventDefault(); go(state.s-1); }
+  else if (e.key==="f" || e.key==="F"){ const st=$("#stage"); if (st.requestFullscreen) st.requestFullscreen().catch(()=>{}); }
+});
+
+async function boot(){
+  render();
+  const c = window.claude;
+  if (!c || !c.use){ standalone=true; presenter=true; $("#conn").textContent="Mod prezentare (fără vot live)"; render(); return; }
+  [db, room, user] = await Promise.all([c.use("db"), c.use("room"), c.use("user")]);
+  if (user){ isOwner = await user.isOwner(); myId = await user.id(); }
+  presenter = isOwner;
+  if (isOwner){
+    const b = h("button",{class:"btn ghost sm",type:"button"},"Vezi ca participant");
+    b.addEventListener("click",()=>{ presenter=!presenter; b.textContent = presenter?"Vezi ca participant":"Vezi ca prezentator"; render(); });
+    $("#sw").append(b);
+  }
+  if (db){
+    db.doc("live/state").onSnapshot(s=>{ if (!s.exists) return; const d=s.data(); if (typeof d.s==="number" && d.s>=0 && d.s<S.length && (d.phase==="vote"||d.phase==="reveal")){ state={s:d.s, phase:d.phase}; if (isOwner && room) absorb(room.peers()); render(); } }, ()=>{});
+    db.doc("live/tally").onSnapshot(s=>{ if (!s.exists || s.metadata.hasPendingWrites) return; const d=s.data(); if (d && d.v && typeof d.v==="object"){ tally = isOwner ? Object.assign({}, d.v, tally) : d.v; render(); } }, ()=>{});
+  }
+  if (room){
+    room.onConnection(on=>{ $("#dot").classList.toggle("on",on); $("#conn").textContent = on ? "Conectat" : "Se reconectează…"; }, ()=>{ $("#dot").classList.remove("on"); $("#conn").textContent="Nu te putem conecta la vot"; room=null; render(); });
+    room.onPeers(ch=>{ if (isOwner) absorb(ch.peers); if (presenter) render(); }, ()=>{});
+    if (Object.keys(mine).length) room.presence({a:mine, uid:myId}).catch(()=>{});
+  } else { $("#conn").textContent="Nu te putem conecta la vot"; }
+  render();
+}
+boot();
+</script>
+
+</body>
+</html>
