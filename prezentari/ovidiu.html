@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Platforma ASiS · DocNativ, Vizor, iFrame, webConfigLinkuri</title>
+<meta name="description" content="Prezentarea lui Ovidiu Chiș la Team Building ASiS 2026: DocNativ, Vizor, iFrame și dezvoltările webConfigLinkuri.">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+/* Stil preluat din deck-ul „Azure 2023 Template” (SQLCon Corenote 2026 EU):
+   fundal alb cu halou punctat cyan/lavandă în colțul dreapta-sus, titluri subțiri în albastru #1A00E2,
+   text negru, carduri albe cu iconițe în cerc gradient, numere în teal #00BBC3, slide-uri de demo cu
+   grilă albastră și forme 3D, pastile de capitol jos-dreapta. */
+:root{
+  --blue:#1A00E2; --navy:#0000B3; --indigo:#0D0061; --azure:#0078D4; --violet:#5D52EC; --magenta:#D12ACA;
+  --teal:#00BBC3; --teal-ink:#0E7A86; --lav:#C9C4F5;
+  --ink:#111111; --ink-soft:#444444; --muted:#6B6B6B; --line:#DADADA; --gray:#E6E6E6;
+  --font:"Segoe UI","Segoe UI Web (West European)","Open Sans",system-ui,sans-serif;
+  --page:#EEF0F6; --page-ink:#1F2A37; --page-muted:#5F6B7A; --page-line:#D5DAE4;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--page);color:var(--page-ink);font-family:var(--font);font-size:15px;line-height:1.45;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:16px;
+  padding-top:max(16px,env(safe-area-inset-top));padding-bottom:max(16px,env(safe-area-inset-bottom))}
+[hidden]{display:none!important}
+
+/* ---------- Scena 16:9 ---------- */
+.stage{position:relative;width:min(100vw - 32px,(100vh - 110px) * 16 / 9);aspect-ratio:16/9;
+  container-type:inline-size;background:#fff;color:var(--ink);overflow:hidden;border-radius:10px;
+  box-shadow:0 1px 3px rgba(13,0,97,.10),0 14px 40px rgba(13,0,97,.12)}
+:fullscreen .stage{width:min(100vw,100vh * 16 / 9);border-radius:0;box-shadow:none}
+:fullscreen{background:#000}
+:fullscreen .hud{display:none}
+
+.slide{position:absolute;inset:0;display:none;flex-direction:column;padding:4.6cqw 4.8cqw 4.2cqw;
+  font-size:1.4cqw;line-height:1.4;animation:fade 240ms ease}
+.slide.active{display:flex}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.slide>*{position:relative;z-index:1}
+.slide p{margin:0}
+
+/* Halou punctat (slide-uri de conținut) */
+.slide.content::before,.slide.content::after,.slide.overview::before,.slide.overview::after,.slide.end::before,.slide.end::after{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:0}
+.slide.content::before,.slide.overview::before,.slide.end::before{
+  background:
+    radial-gradient(62cqw 42cqw at 102% -12%,rgba(0,187,195,.26),transparent 62%),
+    radial-gradient(44cqw 36cqw at 96% 26%,rgba(93,82,236,.20),transparent 62%),
+    radial-gradient(34cqw 26cqw at 58% -8%,rgba(0,187,195,.16),transparent 65%)}
+.slide.content::after,.slide.overview::after,.slide.end::after{
+  background-image:radial-gradient(circle,rgba(13,0,97,.16) .55px,transparent .9px);background-size:5px 5px;
+  -webkit-mask-image:radial-gradient(75cqw 48cqw at 102% -4%,#000 0,transparent 72%);
+          mask-image:radial-gradient(75cqw 48cqw at 102% -4%,#000 0,transparent 72%)}
+
+/* Titluri */
+h1,h2,h3{margin:0;font-family:var(--font)}
+.slide h2{font-weight:300;font-size:3.3cqw;line-height:1.15;color:var(--blue);letter-spacing:-.01em;text-wrap:balance}
+.slide .sub{font-size:1.9cqw;font-weight:400;color:var(--ink);margin-top:.7cqw;line-height:1.3}
+.slide .head{margin-bottom:2cqw}
+.slide .head .no{display:inline-block;color:var(--teal);font-weight:600;font-size:1.1cqw;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.8cqw}
+
+/* Elemente comune */
+.tag{display:inline-block;background:linear-gradient(90deg,var(--blue),var(--teal));color:#fff;border-radius:.5cqw;
+  padding:.5cqw 1.3cqw;font-size:1.2cqw;font-weight:400;line-height:1.2}
+.chip{display:inline-flex;align-items:center;gap:.7cqw;background:var(--navy);color:#fff;border-radius:.7cqw;
+  padding:.7cqw 1.5cqw;font-size:1.35cqw;line-height:1.2}
+.chip svg{width:1.4cqw;height:1.4cqw}
+.brand{position:absolute;left:4.8cqw;top:3.6cqw;display:flex;align-items:center;gap:.8cqw;font-size:1.6cqw;color:#5A5A5A;z-index:2}
+.brand .mark{width:1.9cqw;height:1.9cqw;display:grid;grid-template-columns:1fr 1fr;gap:.15cqw}
+.brand .mark i{display:block;border-radius:.1cqw}
+.brand .mark i:nth-child(1){background:#1A00E2}.brand .mark i:nth-child(2){background:#00BBC3}
+.brand .mark i:nth-child(3){background:#0078D4}.brand .mark i:nth-child(4){background:#5D52EC}
+.brand b{font-weight:600;color:#3A3A3A}
+
+.cards{display:grid;grid-template-columns:repeat(var(--n,3),minmax(0,1fr));gap:2.2cqw;align-items:stretch}
+.card{position:relative;background:#fff;border:1px solid var(--line);border-radius:1.1cqw;box-shadow:0 .15cqw .7cqw rgba(0,0,0,.08);
+  display:flex;flex-direction:column;min-width:0;padding:1.6cqw 1.6cqw 1.8cqw}
+.card>h3{color:var(--blue);font-weight:400;font-size:1.75cqw;line-height:1.25;margin-bottom:.9cqw;text-wrap:balance}
+.card p{font-size:1.3cqw;color:var(--ink-soft);line-height:1.45}
+.card.ic{margin-top:3.2cqw;padding-top:4.2cqw;text-align:center}
+.card .ico{position:absolute;top:-3.2cqw;left:50%;transform:translateX(-50%);width:6.2cqw;height:6.2cqw;border-radius:50%;
+  background:linear-gradient(160deg,#1A00E2 0%,#0062E0 60%,#0078D4 100%);display:grid;place-items:center;box-shadow:0 .4cqw 1cqw rgba(26,0,226,.25)}
+.card .ico svg{width:2.9cqw;height:2.9cqw;stroke:#fff;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.card.bar{padding:0;overflow:hidden}
+.card.bar>h3{background:var(--blue);color:#fff;font-weight:600;font-size:1.55cqw;padding:.8cqw 1.4cqw;margin:0}
+.card.bar .body{padding:1.3cqw 1.4cqw 1.5cqw}
+
+.slide ul{margin:0;padding:0;list-style:none;text-align:left}
+.slide ul li{position:relative;padding-left:1.7cqw;margin:.55cqw 0;font-size:1.3cqw;color:var(--ink-soft);line-height:1.4}
+.slide ul li::before{content:"";position:absolute;left:0;top:.42em;width:.6cqw;height:.6cqw;border:.17cqw solid var(--teal);border-radius:50%}
+.slide ul li b{color:var(--ink);font-weight:600}
+
+.slide.content{padding-bottom:7cqw}
+.slide .callout{margin-top:auto;padding-top:1.3cqw;border-top:1px solid #CFCFCF;text-align:center;color:var(--teal-ink);
+  font-style:italic;font-size:1.7cqw;line-height:1.35}
+.callout::after{content:"";display:block;margin-top:1.1cqw;height:.12cqw;background:var(--teal)}
+
+.quote{display:flex;gap:1.8cqw;align-items:flex-start;margin-bottom:2.2cqw}
+.quote .q{flex:0 0 auto;font-family:Georgia,"Times New Roman",serif;font-size:7cqw;line-height:.55;color:var(--magenta);margin-top:.9cqw}
+.quote p{font-size:2.3cqw;font-weight:300;font-style:italic;line-height:1.25;color:var(--indigo)}
+.quote small{display:block;font-size:1.2cqw;color:var(--muted);margin-top:.7cqw;font-style:normal;font-weight:400}
+
+.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:1.4cqw;margin-top:.6cqw}
+.flow .node{background:#fff;border:1px solid var(--line);border-radius:1cqw;padding:1.4cqw 1.6cqw;text-align:center;box-shadow:0 .15cqw .7cqw rgba(0,0,0,.07)}
+.flow .node.core{background:var(--blue);color:#fff;border-color:transparent}
+.flow .node b{display:block;font-size:1.6cqw;font-weight:600}
+.flow .node span{font-size:1.15cqw;color:var(--ink-soft)}
+.flow .node.core span{color:#DDD8FF}
+.flow .arr{color:var(--teal);font-size:2.6cqw;line-height:1}
+
+.hex{position:absolute;left:2.4cqw;bottom:2.2cqw;width:6cqw;height:6cqw;z-index:1;pointer-events:none}
+.pills{position:absolute;right:4.8cqw;bottom:2.6cqw;display:flex;gap:.45cqw;z-index:2}
+.pill{font-family:inherit;border:0;cursor:pointer;background:var(--lav);color:#fff;font-size:.78cqw;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+  padding:.38cqw .85cqw;border-radius:.3cqw;line-height:1.3;transition:background 120ms,transform 120ms}
+.pill:hover{background:var(--violet);transform:translateY(-.1cqw)}
+.pill:focus-visible{outline:.2cqw solid var(--azure);outline-offset:.15cqw}
+.pill.on{background:var(--navy)}
+/* Marcaj pentru prezentator: ultimul slide dintr-un capitol */
+.pills .last-mark{display:none;align-items:center;gap:.45cqw;margin-right:.6cqw;color:var(--teal-ink);font-size:.78cqw;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.pills .last-mark::before{content:"";width:.7cqw;height:.7cqw;border-radius:50%;background:var(--teal);box-shadow:0 0 0 .25cqw rgba(0,187,195,.25)}
+.pills.last .last-mark{display:inline-flex}
+.pills.last .pill.on{box-shadow:inset -.5cqw 0 0 var(--teal)}
+/* Link discret în card (ghidul Vizor) */
+.card .link{color:var(--blue);text-decoration:none;border-bottom:1px solid rgba(26,0,226,.35)}
+.card .link:hover{border-bottom-color:var(--blue)}
+
+/* ---------- Slide de titlu ---------- */
+.slide.title{justify-content:center;gap:1.6cqw}
+.slide.title h1{font-weight:300;font-size:5.4cqw;line-height:1.05;color:var(--indigo);letter-spacing:-.015em;max-width:50cqw;text-wrap:balance}
+.slide.title .lines{display:flex;flex-direction:column;gap:.9cqw;font-size:1.65cqw;color:var(--indigo);margin-top:1.2cqw}
+.slide.title .lines b{font-weight:600}
+.wire{position:absolute;right:-6cqw;top:4cqw;width:58cqw;height:58cqw;z-index:0;pointer-events:none}
+
+/* ---------- Slide de prezentare generală ---------- */
+.slide.overview{flex-direction:row;align-items:center;gap:6cqw}
+.slide.overview .left{flex:0 0 36cqw}
+.slide.overview .left h2{font-size:3.6cqw}
+.slide.overview .left p{font-size:1.9cqw;margin-top:1.4cqw;color:var(--ink)}
+.slide.overview .rows{flex:1;display:flex;flex-direction:column;gap:1.8cqw}
+.row{display:flex;align-items:center;gap:2.4cqw;font-size:1.85cqw;line-height:1.25}
+.row .sq{flex:0 0 auto;width:5cqw;height:5cqw;border:.12cqw solid #C9C9C9;border-radius:1cqw;background:#fff;display:grid;place-items:center;
+  color:var(--blue);font-weight:600;font-size:2.1cqw;box-shadow:0 .1cqw .5cqw rgba(0,0,0,.06)}
+.row small{display:block;font-size:1.2cqw;color:var(--muted);margin-top:.2cqw}
+
+/* ---------- Slide de demo ---------- */
+.slide.demo{justify-content:center;overflow:hidden}
+.slide.demo .tag{position:absolute;left:4.8cqw;top:4.2cqw}
+.slide.demo h2{font-size:4.4cqw;max-width:46cqw;color:var(--blue)}
+.slide.demo .who{font-size:1.65cqw;color:var(--indigo);margin-top:2cqw}
+/* Colegii invitați la demo: etichetă teal + nume ca pastile */
+.guests{display:flex;align-items:center;flex-wrap:wrap;gap:.6cqw;margin-top:1.2cqw;font-size:1.15cqw;color:var(--teal-ink)}
+.guests .lbl{font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:.9cqw;margin-right:.3cqw}
+.guests span:not(.lbl){background:rgba(0,187,195,.12);border:1px solid rgba(0,187,195,.45);color:var(--ink);border-radius:99px;padding:.25cqw 1cqw;font-size:1.2cqw;font-weight:600}
+.slide.content .guests{margin-top:.6cqw}
+.slide.demo .scn{margin-top:1.4cqw;max-width:44cqw;font-size:1.45cqw;color:var(--ink-soft)}
+.grid-blue{position:absolute;right:-28cqw;top:-24cqw;width:90cqw;height:110cqw;transform:rotate(14deg) skewX(10deg);z-index:0;opacity:.75;
+  background:repeating-linear-gradient(0deg,transparent 0 3.2cqw,rgba(0,120,212,.7) 3.2cqw calc(3.2cqw + 1px)),
+             repeating-linear-gradient(90deg,transparent 0 3.2cqw,rgba(0,120,212,.7) 3.2cqw calc(3.2cqw + 1px));
+  -webkit-mask-image:linear-gradient(250deg,#000 30%,transparent 62%);mask-image:linear-gradient(250deg,#000 30%,transparent 62%)}
+.ring{position:absolute;right:4cqw;top:7cqw;width:30cqw;height:30cqw;border-radius:50%;z-index:0;
+  background:radial-gradient(circle at 50% 50%,transparent 0 9.5cqw,#1D3FE8 9.6cqw,#0B2FD0 11cqw,#2F6FF0 12.5cqw,#0A2AB8 14.4cqw,transparent 14.5cqw);
+  filter:drop-shadow(0 1.4cqw 1.6cqw rgba(0,40,160,.22))}
+.ring::after{content:"";position:absolute;inset:0;border-radius:50%;
+  background:radial-gradient(circle at 36% 28%,rgba(255,255,255,.55),transparent 32%),radial-gradient(circle at 50% 50%,transparent 0 9.5cqw,rgba(255,255,255,.08) 9.6cqw,transparent 14.5cqw)}
+.ast{position:absolute;right:30cqw;top:30cqw;width:14cqw;height:14cqw;z-index:0;filter:drop-shadow(0 1cqw 1.2cqw rgba(0,40,160,.22))}
+.ast i{position:absolute;left:50%;top:50%;width:14cqw;height:3.4cqw;margin:-1.7cqw 0 0 -7cqw;border-radius:.8cqw;
+  background:linear-gradient(90deg,#1B4FE6,#3B7DF5 50%,#0D2FC2);box-shadow:inset 0 .3cqw .6cqw rgba(255,255,255,.35),inset 0 -.4cqw .6cqw rgba(0,0,80,.25)}
+.ast i:nth-child(2){transform:rotate(60deg)}.ast i:nth-child(3){transform:rotate(120deg)}
+
+/* ---------- Slide final ---------- */
+.frame{background:linear-gradient(90deg,var(--blue),var(--teal));padding:.15cqw;border-radius:1.3cqw;margin:auto 0}
+.frame>div{background:#fff;border-radius:1.2cqw;padding:1.6cqw;display:grid;grid-template-columns:1fr 1fr;gap:1.4cqw}
+.box{background:var(--gray);border-radius:1cqw;padding:3.2cqw 2cqw;text-align:center;display:flex;flex-direction:column;align-items:center;gap:1.4cqw;
+  color:var(--ink);text-decoration:none}
+.box .big{font-size:2.3cqw;font-weight:300;line-height:1.15}
+.box .tag{font-size:1.5cqw;padding:.7cqw 2cqw}
+.slide.end{justify-content:center}
+.slide.end .head{text-align:center}
+
+/* ---------- Bara de control (în afara scenei) ---------- */
+.hud{width:min(100vw - 32px,(100vh - 110px) * 16 / 9);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+  font-size:13px;color:var(--page-muted)}
+.hud a,.hud button{font:inherit;color:var(--page-muted);text-decoration:none;background:#fff;border:1px solid var(--page-line);border-radius:6px;
+  padding:5px 11px;cursor:pointer;transition:color 120ms,border-color 120ms}
+.hud a:hover,.hud button:hover{color:var(--page-ink);border-color:#9AA6B8}
+.hud a:focus-visible,.hud button:focus-visible{outline:3px solid var(--azure);outline-offset:2px}
+.hud .nav{display:flex;gap:6px;align-items:center}
+.hud .counter{font-variant-numeric:tabular-nums;min-width:5ch;text-align:center}
+.hud kbd{font-family:inherit;font-size:11px;color:var(--page-ink);background:#fff;border:1px solid var(--page-line);border-bottom-width:2px;border-radius:4px;padding:0 5px;margin-right:3px}
+.progress{position:fixed;left:0;top:0;height:3px;width:0;background:linear-gradient(90deg,var(--blue),var(--teal));transition:width 200ms ease;z-index:9}
+@media (max-width:640px){.hud .hint{display:none}}
+
+/* ---------- Tipărire: toate slide-urile, câte unul pe pagină ---------- */
+@media print{
+  @page{size:landscape;margin:0}
+  body{display:block;background:#fff;padding:0}
+  .hud,.progress,.pills{display:none}
+  .stage{width:100%;aspect-ratio:auto;border-radius:0;box-shadow:none;overflow:visible}
+  .slide{position:relative;display:flex!important;aspect-ratio:16/9;page-break-after:always;animation:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs><linearGradient id="hx1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8FF0E6"/><stop offset=".6" stop-color="#2BC9D6"/><stop offset="1" stop-color="#1A8FCF"/></linearGradient>
+  <symbol id="hex" viewBox="0 0 100 100"><polygon points="50,4 92,27 92,73 50,96 8,73 8,27" fill="url(#hx1)" stroke="#fff" stroke-opacity=".6" stroke-width="3"/><polygon points="50,22 74,36 74,64 50,78 26,64 26,36" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="2"/></symbol></defs>
+</svg>
+
+<div class="stage" id="stage">
+
+<!-- 1 · Titlu -->
+<section class="slide title">
+  <div class="brand" aria-hidden="true"><span class="mark"><i></i><i></i><i></i><i></i></span><span>Platforma <b>ASiS</b></span></div>
+  <svg class="wire" viewBox="0 0 600 600" aria-hidden="true" fill="none" stroke="#0078D4" stroke-width="1.1" stroke-linejoin="round">
+    <g transform="translate(300 320) rotate(-28) skewX(-18) translate(-200 -200)">
+      <rect x="0" y="0" width="400" height="400" rx="110"/><rect x="9" y="-8" width="400" height="400" rx="110"/><rect x="18" y="-16" width="400" height="400" rx="110"/>
+      <rect x="27" y="-24" width="400" height="400" rx="110"/><rect x="36" y="-32" width="400" height="400" rx="110"/><rect x="45" y="-40" width="400" height="400" rx="110"/>
+      <rect x="54" y="-48" width="400" height="400" rx="110"/><rect x="63" y="-56" width="400" height="400" rx="110"/><rect x="72" y="-64" width="400" height="400" rx="110"/>
+      <rect x="81" y="-72" width="400" height="400" rx="110"/><rect x="90" y="-80" width="400" height="400" rx="110"/><rect x="99" y="-88" width="400" height="400" rx="110"/>
+      <rect x="108" y="-96" width="400" height="400" rx="110"/><rect x="117" y="-104" width="400" height="400" rx="110"/>
+      <rect x="120" y="16" width="160" height="160" rx="46"/><rect x="129" y="8" width="160" height="160" rx="46"/><rect x="138" y="0" width="160" height="160" rx="46"/>
+      <rect x="147" y="-8" width="160" height="160" rx="46"/><rect x="156" y="-16" width="160" height="160" rx="46"/><rect x="165" y="-24" width="160" height="160" rx="46"/>
+      <path d="M0 110 L117 6 M0 290 L117 186 M110 0 L227 -104 M290 0 L407 -104 M400 110 L517 6 M400 290 L517 186 M110 400 L227 296 M290 400 L407 296"/>
+    </g>
+  </svg>
+  <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>Team Building ASiS 2026 · Sesiunile tehnice</span>
+  <h1>Patru dezvoltări pe platforma ASiS</h1>
+  <div class="lines">
+    <span>DocNativ · Vizor · iFrame · webConfigLinkuri</span>
+    <span><b>Ovidiu Chiș</b></span>
+    <span>Theodora Golf Club · 2–4 octombrie 2026</span>
+  </div>
+</section>
+
+<!-- 2 · Despre ce vorbim -->
+<section class="slide overview">
+  <div class="left">
+    <h2>Despre ce vorbim</h2>
+    <p>Patru dezvoltări, trei demo-uri scurte.</p>
+  </div>
+  <div class="rows">
+    <div class="row"><span class="sq">1</span><span>DocNativ<small>Formulare Docx și colecția standard</small></span></div>
+    <div class="row"><span class="sq">2</span><span>Vizor<small>Rapoarte instant, pe structura exporturilor în Excel</small></span></div>
+    <div class="row"><span class="sq">3</span><span>iFrame<small>Interfețe moderne, cu date din ASiS</small></span></div>
+    <div class="row"><span class="sq">4</span><span>webConfigLinkuri<small>Securizare și API-uri moderne</small></span></div>
+  </div>
+</section>
+
+<!-- 3 · DocNativ -->
+<section class="slide content" data-chapter="1">
+  <div class="head"><span class="no">01 · Formulare Docx</span><h2>DocNativ</h2><p class="sub">Construim doar pe DocNativ: înlocuiește html2pdf și rapoartele .RDL</p></div>
+  <div class="cards" style="--n:3">
+    <div class="card ic">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg></span>
+      <h3>O singură tehnologie</h3>
+      <p>Toate formularele noi se construiesc pe DocNativ. html2pdf și .RDL ies din uz.</p>
+    </div>
+    <div class="card ic">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18"/><path d="M7 4v16M17 4v16" opacity=".6"/></svg></span>
+      <h3>Colecția standard</h3>
+      <p>Împingem o colecție de formulare gata făcute, care servește și ca referință estetică.</p>
+    </div>
+    <div class="card ic">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></svg></span>
+      <h3>Auto-update și versionare</h3>
+      <p>Colecția se actualizează singură la client; fiecare formular are versiuni.</p>
+    </div>
+  </div>
+  <p class="callout">De aici înainte, un formular nou înseamnă un șablon Microsoft Word.</p>
+  <svg class="hex" aria-hidden="true"><use href="#hex"/></svg>
+</section>
+
+<!-- 4 · Demo DocNativ -->
+<section class="slide demo" data-chapter="1">
+  <div class="grid-blue" aria-hidden="true"></div><div class="ring" aria-hidden="true"></div><div class="ast" aria-hidden="true"><i></i><i></i><i></i></div>
+  <span class="tag">Demo scurt</span>
+  <h2>DocNativ pe viu</h2>
+  <p class="who">Ovidiu Chiș</p>
+  <p class="guests"><span>Andras</span></p>
+  <p class="scn">Un formular din colecția standard: șablon Word → date din ASiS → document generat.</p>
+</section>
+
+<!-- 5 · Vizor -->
+<section class="slide content" data-chapter="2">
+  <div class="head"><span class="no">02 · Rapoarte instant</span><h2>Vizor</h2></div>
+  <div class="quote"><span class="q">“</span><p>Unealta mea preferată din ASiS.<small>— un coleg</small></p></div>
+  <div class="cards" style="--n:2">
+    <div class="card bar"><h3>Pe structura exporturilor în Excel</h3><div class="body"><ul>
+      <li><b>Configurare</b>: avem ghidul uneltei, <a class="link" href="http://docu.asiserp.ro/vizor" target="_blank" rel="noopener">docu.asiserp.ro/vizor</a>.</li>
+      <li><b>Un export nou</b>: o linie de cod într-o procedură existentă.</li>
+    </ul></div></div>
+    <div class="card bar"><h3>Personalizări pentru utilizator</h3><div class="body"><ul>
+      <li><b>Zona de header</b>: filtrări dinamice.</li>
+      <li><b>Coloane</b>: ascundere și afișare, după nevoie.</li>
+    </ul></div></div>
+  </div>
+  <p class="callout">Rapoarte instant, fără efort de proiectare.</p>
+  <svg class="hex" aria-hidden="true"><use href="#hex"/></svg>
+</section>
+
+<!-- 6 · Demo Vizor -->
+<section class="slide demo" data-chapter="2">
+  <div class="grid-blue" aria-hidden="true"></div><div class="ring" aria-hidden="true"></div><div class="ast" aria-hidden="true"><i></i><i></i><i></i></div>
+  <span class="tag">Demo scurt</span>
+  <h2>Vizor pe viu</h2>
+  <p class="who">Ovidiu Chiș</p>
+  <p class="guests"><span>Vlad</span></p>
+  <p class="scn">Deschid un Vizor → filtrez din header → ascund coloane → export.</p>
+</section>
+
+<!-- 7 · iFrame -->
+<section class="slide content" data-chapter="3">
+  <div class="head"><span class="no">03 · Interfețe moderne în ASiS</span><h2>iFrame</h2><p class="sub">Integrăm interfețe moderne, care deservesc mai bine scopul clientului</p></div>
+  <div class="cards" style="--n:3">
+    <div class="card ic">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M8 7 3 12l5 5M16 7l5 5-5 5"/><path d="M14 4l-4 16"/></svg></span>
+      <h3>HTML, CSS, JavaScript</h3>
+      <p>Pagini web obișnuite, infuzate cu date din ASiS.</p>
+    </div>
+    <div class="card ic">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M3 20h18"/><path d="M5 17V10M10 17V5M15 17v-7M20 17V8"/></svg></span>
+      <h3>Componente moderne</h3>
+      <p>Hărți, grafice și orice componentă JavaScript de pe piață.</p>
+    </div>
+    <div class="card ic">
+      <span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M12 9v11" opacity=".6"/></svg></span>
+      <h3>Interfața potrivită scopului</h3>
+      <p>Clientul primește ecranul de care are nevoie, în aplicația pe care o are deja.</p>
+    </div>
+  </div>
+  <p class="callout">Datele din ASiS în orice interfață vrei.</p>
+  <svg class="hex" aria-hidden="true"><use href="#hex"/></svg>
+</section>
+
+<!-- 8 · Demo iFrame -->
+<section class="slide demo" data-chapter="3">
+  <div class="grid-blue" aria-hidden="true"></div><div class="ring" aria-hidden="true"></div><div class="ast" aria-hidden="true"><i></i><i></i><i></i></div>
+  <span class="tag">Demo scurt</span>
+  <h2>iFrame pe viu</h2>
+  <p class="who">Ovidiu Chiș</p>
+  <p class="guests"><span>Tudor</span><span>Dorian</span></p>
+  <p class="scn">O interfață modernă (harți, grafice, componente noi) cu date din ASiS, deschisă din ASiS.</p>
+</section>
+
+<!-- 9 · webConfigLinkuri -->
+<section class="slide content" data-chapter="4">
+  <div class="head"><span class="no">04 · Dezvoltări</span><h2>webConfigLinkuri</h2><p class="sub">Securizare și API-uri moderne</p>
+    <p class="guests"><span>Alex</span></p></div>
+  <div class="cards" style="--n:2">
+    <div class="card bar"><h3>Securizare</h3><div class="body"><ul>
+      <li>Validare <b>token de acces</b> la fiecare apel.</li>
+      <li>Ce nu are token valid nu primește conținut.</li>
+    </ul></div></div>
+    <div class="card bar"><h3>API-uri moderne</h3><div class="body"><ul>
+      <li><b>HTTP response code</b> corect pentru fiecare situație.</li>
+      <li><b>Conținut</b> structurat, validat, ușor de consumat.</li>
+    </ul></div></div>
+  </div>
+  <div class="flow">
+    <div class="node"><b>Intrare</b><span>iFrame, interfețe externe</span></div>
+    <span class="arr">→</span>
+    <div class="node core"><b>API ASiS</b><span>singura cale de comunicare</span></div>
+    <span class="arr">→</span>
+    <div class="node"><b>Ieșire</b><span>date, documente, acțiuni</span></div>
+  </div>
+  <p class="callout">ASiS vorbește cu orice sistem prin „linkuri”.</p>
+  <svg class="hex" aria-hidden="true"><use href="#hex"/></svg>
+</section>
+
+<!-- 10 · Final -->
+<section class="slide end">
+  <div class="head"><h2>Întrebări</h2><p class="sub">DocNativ · Vizor · iFrame · webConfigLinkuri</p></div>
+  <div class="frame"><div>
+    <a class="box" href="https://teambuilding.asis.ro/prezentari/ovidiu"><span class="tag">Slide-urile</span><span class="big" style="font-size:1.8cqw">teambuilding.asis.ro/prezentari/ovidiu</span></a>
+    <a class="box" href="mailto:ovidiu@asis.ro"><span class="tag">Întrebări după</span><span class="big">ovidiu@asis.ro</span></a>
+  </div></div>
+</section>
+
+<!-- Pastile de capitol, ca pe deck-ul Azure: butoane care sar la începutul capitolului; capitolul curent e evidențiat -->
+<nav class="pills" data-pills hidden aria-label="Capitole">
+  <span class="last-mark" aria-hidden="true">ultimul din capitol</span><button type="button" class="pill" data-ch="1">DocNativ</button><button type="button" class="pill" data-ch="2">Vizor</button><button type="button" class="pill" data-ch="3">iFrame</button><button type="button" class="pill" data-ch="4">webConfig</button>
+</nav>
+
+</div>
+
+<div class="hud">
+  <a href="../index.html">← Team Building 2026</a>
+  <span class="hint"><kbd>→</kbd>următor · <kbd>←</kbd>anterior · <kbd>F</kbd>ecran complet · <kbd>Esc</kbd>înapoi</span>
+  <span class="nav">
+    <button type="button" data-prev aria-label="Anterior">‹</button>
+    <span class="counter" data-counter>1 / 1</span>
+    <button type="button" data-next aria-label="Următor">›</button>
+    <button type="button" data-full aria-label="Ecran complet">⛶</button>
+  </span>
+</div>
+
+<script>
+// Navigare: → / Space / PgDn = următor · ← / PgUp = anterior · Home / End · F = ecran complet · Esc = înapoi.
+// Link direct la un slide: #7. Pastilele de capitol urmăresc atributul data-chapter al slide-ului curent.
+(function () {
+  const slides = Array.from(document.querySelectorAll(".slide"));
+  if (!slides.length) return;
+  const counter = document.querySelector("[data-counter]");
+  const progress = document.querySelector(".progress");
+  const pills = document.querySelector("[data-pills]");
+  const stage = document.getElementById("stage");
+  const backHref = "../index.html";
+  let current = 0;
+
+  const clamp = (n) => Math.max(0, Math.min(slides.length - 1, n));
+
+  function show(n, updateHash = true) {
+    current = clamp(n);
+    slides.forEach((s, i) => s.classList.toggle("active", i === current));
+    if (counter) counter.textContent = `${current + 1} / ${slides.length}`;
+    if (progress) progress.style.width = `${((current + 1) / slides.length) * 100}%`;
+    const ch = slides[current].dataset.chapter;
+    if (pills) {
+      pills.hidden = current === 0; // ascunse doar pe slide-ul de titlu
+      // ultimul slide din capitol = următorul slide are alt capitol (sau niciunul)
+      const isLast = !!ch && slides[current + 1]?.dataset.chapter !== ch;
+      pills.classList.toggle("last", isLast);
+      pills.querySelectorAll(".pill").forEach((p) => {
+        p.classList.toggle("on", p.dataset.ch === ch);
+        p.setAttribute("aria-current", p.dataset.ch === ch ? "true" : "false");
+      });
+    }
+    if (updateHash) history.replaceState(null, "", `#${current + 1}`);
+  }
+
+  // Click pe o pastilă = primul slide al capitolului respectiv
+  pills?.querySelectorAll(".pill").forEach((p) => {
+    p.addEventListener("click", () => {
+      const i = slides.findIndex((s) => s.dataset.chapter === p.dataset.ch);
+      if (i >= 0) show(i);
+      p.blur(); // ca Enter/Space să navigheze în continuare prin slide-uri, nu să reapese butonul
+    });
+  });
+
+  function fromHash() {
+    const n = parseInt(location.hash.replace("#", ""), 10);
+    show(isNaN(n) ? 0 : n - 1, false);
+  }
+  window.addEventListener("hashchange", fromHash);
+  fromHash();
+
+  function toggleFull() {
+    if (document.fullscreenElement) document.exitFullscreen();
+    else document.documentElement.requestFullscreen?.();
+  }
+
+  document.addEventListener("keydown", (e) => {
+    if (e.target && /input|textarea/i.test(e.target.tagName)) return;
+    switch (e.key) {
+      case "ArrowRight": case "PageDown": case " ": e.preventDefault(); show(current + 1); break;
+      case "ArrowLeft": case "PageUp": e.preventDefault(); show(current - 1); break;
+      case "Home": show(0); break;
+      case "End": show(slides.length - 1); break;
+      case "f": case "F": toggleFull(); break;
+      case "Escape": if (!document.fullscreenElement) location.href = backHref; break;
+    }
+  });
+
+  document.querySelector("[data-prev]")?.addEventListener("click", () => show(current - 1));
+  document.querySelector("[data-next]")?.addEventListener("click", () => show(current + 1));
+  document.querySelector("[data-full]")?.addEventListener("click", toggleFull);
+
+  // Click pe jumătatea dreaptă/stângă a scenei = următor/anterior (nu și pe linkuri)
+  stage.addEventListener("click", (e) => {
+    if (e.target.closest("a,button")) return;
+    const r = stage.getBoundingClientRect();
+    show(current + (e.clientX - r.left > r.width / 2 ? 1 : -1));
+  });
+
+  // Swipe pe ecrane touch
+  let startX = null;
+  document.addEventListener("touchstart", (e) => (startX = e.touches[0].clientX), { passive: true });
+  document.addEventListener("touchend", (e) => {
+    if (startX === null) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 60) show(current + (dx < 0 ? 1 : -1));
+    startX = null;
+  });
+})();
+</script>
+</body>
+</html>
