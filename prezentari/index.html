@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <title>Prezentări · Team Building ASiS 2026</title>
+    <meta
+      name="description"
+      content="Prezentările sesiunilor de la Team Building ASiS 2026: Ovidiu Chiș, Cristian Pavel și Andrei Pop."
+    />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Același limbaj vizual ca ovidiu.html: fundal alb cu halou punctat cyan/lavandă, titluri subțiri
+         în albastru #1A00E2, carduri albe cu iconițe în cerc gradient, etichete teal. */
+      :root {
+        --blue: #1a00e2;
+        --navy: #0000b3;
+        --indigo: #0d0061;
+        --azure: #0078d4;
+        --violet: #5d52ec;
+        --teal: #00bbc3;
+        --teal-ink: #0e7a86;
+        --lav: #c9c4f5;
+        --ink: #111111;
+        --ink-soft: #444444;
+        --muted: #6b6b6b;
+        --line: #dadada;
+        --font:
+          "Segoe UI", "Segoe UI Web (West European)", "Open Sans", system-ui,
+          sans-serif;
+        --page: #eef0f6;
+        --page-ink: #1f2a37;
+        --page-muted: #5f6b7a;
+        --page-line: #d5dae4;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--page);
+        color: var(--page-ink);
+        font-family: var(--font);
+        font-size: 15px;
+        line-height: 1.45;
+        padding: 24px 16px;
+        padding-top: max(24px, env(safe-area-inset-top));
+        padding-bottom: max(24px, env(safe-area-inset-bottom));
+      }
+
+      .sheet {
+        position: relative;
+        max-width: 1080px;
+        margin: 0 auto;
+        background: #fff;
+        color: var(--ink);
+        border-radius: 14px;
+        overflow: hidden;
+        padding: 40px 48px 44px;
+        box-shadow:
+          0 1px 3px rgba(13, 0, 97, 0.1),
+          0 14px 40px rgba(13, 0, 97, 0.12);
+      }
+      /* Halou punctat în colțul dreapta-sus */
+      .sheet::before,
+      .sheet::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+      .sheet::before {
+        background:
+          radial-gradient(
+            680px 460px at 102% -12%,
+            rgba(0, 187, 195, 0.12),
+            transparent 62%
+          ),
+          radial-gradient(
+            480px 400px at 96% 22%,
+            rgba(93, 82, 236, 0.08),
+            transparent 62%
+          ),
+          radial-gradient(
+            380px 280px at 58% -8%,
+            rgba(0, 187, 195, 0.06),
+            transparent 65%
+          );
+      }
+      .sheet::after {
+        background-image: radial-gradient(
+          circle,
+          rgba(13, 0, 97, 0.1) 0.55px,
+          transparent 0.9px
+        );
+        background-size: 5px 5px;
+        -webkit-mask-image: radial-gradient(
+          560px 360px at 102% -4%,
+          #000 0,
+          transparent 72%
+        );
+        mask-image: radial-gradient(
+          560px 360px at 102% -4%,
+          #000 0,
+          transparent 72%
+        );
+      }
+      .sheet > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        font-size: 16px;
+        color: #5a5a5a;
+        margin-bottom: 28px;
+      }
+      .brand .mark {
+        width: 20px;
+        height: 20px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2px;
+      }
+      .brand .mark i {
+        display: block;
+        border-radius: 1px;
+      }
+      .brand .mark i:nth-child(1) {
+        background: #1a00e2;
+      }
+      .brand .mark i:nth-child(2) {
+        background: #00bbc3;
+      }
+      .brand .mark i:nth-child(3) {
+        background: #0078d4;
+      }
+      .brand .mark i:nth-child(4) {
+        background: #5d52ec;
+      }
+      .brand b {
+        font-weight: 600;
+        color: #3a3a3a;
+      }
+
+      .no {
+        display: inline-block;
+        color: var(--teal);
+        font-weight: 600;
+        font-size: 12px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      h1 {
+        margin: 0;
+        font-weight: 300;
+        font-size: 40px;
+        line-height: 1.1;
+        color: var(--blue);
+        letter-spacing: -0.01em;
+        text-wrap: balance;
+      }
+      .sub {
+        margin: 10px 0 0;
+        font-size: 18px;
+        color: var(--ink);
+        max-width: 640px;
+      }
+
+      .list {
+        list-style: none;
+        margin: 52px 0 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 52px 24px;
+      }
+      .card {
+        position: relative;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        padding: 46px 24px 22px;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        min-width: 0;
+      }
+      .ico {
+        position: absolute;
+        top: -32px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: #fff;
+        border: 1px solid rgba(0, 187, 195, 0.45);
+        display: grid;
+        place-items: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      }
+      .ico svg {
+        width: 30px;
+        height: 30px;
+        stroke: var(--teal-ink);
+        fill: none;
+        stroke-width: 1.9;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .who {
+        color: var(--teal-ink);
+        font-weight: 600;
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .card h2 {
+        margin: 6px 0 10px;
+        color: var(--page-ink);
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 1.25;
+        text-wrap: balance;
+      }
+      .card p {
+        margin: 0;
+        font-size: 15px;
+        color: var(--ink-soft);
+        line-height: 1.5;
+      }
+      .meta {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 14px;
+      }
+      .meta span {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: var(--teal-ink);
+        background: rgba(0, 187, 195, 0.12);
+        border-radius: 4px;
+        padding: 3px 8px;
+      }
+      .meta span.fmt {
+        color: var(--page-ink);
+        background: var(--page);
+      }
+
+      /* URL-ul, ca pe slide-ul bonus din ovidiu.html */
+      .url {
+        margin-top: auto;
+        padding-top: 18px;
+      }
+      .url a {
+        display: block;
+        padding: 9px 12px;
+        background: #f6f7fb;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        color: var(--ink-soft);
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        overflow-wrap: anywhere;
+      }
+      .url a:hover {
+        text-decoration: underline;
+      }
+      .actions {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 40px;
+        padding: 0 16px;
+        border-radius: 8px;
+        font: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        transition:
+          transform 120ms,
+          box-shadow 120ms,
+          border-color 120ms;
+      }
+      .btn.primary {
+        color: #fff;
+        background: linear-gradient(90deg, var(--blue), var(--teal));
+        box-shadow: 0 3px 10px rgba(26, 0, 226, 0.2);
+      }
+      .btn.primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 5px 14px rgba(26, 0, 226, 0.28);
+      }
+      .btn.ghost {
+        color: var(--page-ink);
+        background: #fff;
+        border: 1px solid var(--page-line);
+      }
+      .btn.ghost:hover {
+        border-color: #9aa6b8;
+      }
+      .btn:focus-visible,
+      .url a:focus-visible,
+      .back:focus-visible {
+        outline: 3px solid var(--azure);
+        outline-offset: 2px;
+      }
+
+      .foot {
+        max-width: 1080px;
+        margin: 14px auto 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        font-size: 13px;
+        color: var(--page-muted);
+      }
+      .back {
+        color: var(--page-muted);
+        text-decoration: none;
+        background: #fff;
+        border: 1px solid var(--page-line);
+        border-radius: 6px;
+        padding: 6px 12px;
+      }
+      .back:hover {
+        color: var(--page-ink);
+        border-color: #9aa6b8;
+      }
+
+      @media (max-width: 760px) {
+        body {
+          padding: 0 0 max(16px, env(safe-area-inset-bottom));
+        }
+        .sheet {
+          border-radius: 0;
+          box-shadow: none;
+          padding: max(28px, env(safe-area-inset-top)) 18px 32px;
+        }
+        h1 {
+          font-size: 30px;
+        }
+        .sub {
+          font-size: 16px;
+        }
+        .list {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 44px;
+          margin-top: 44px;
+        }
+        .card {
+          padding: 40px 16px 18px;
+        }
+        .ico {
+          top: -26px;
+          width: 52px;
+          height: 52px;
+        }
+        .ico svg {
+          width: 24px;
+          height: 24px;
+        }
+        .card h2 {
+          font-size: 20px;
+        }
+        .foot {
+          padding: 0 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="sheet">
+      <div class="brand" aria-hidden="true">
+        <span class="mark"><i></i><i></i><i></i><i></i></span
+        ><span>Platforma <b>ASiS</b></span>
+      </div>
+      <span class="no">Team Building ASiS 2026 · Theodora Golf Club</span>
+      <h1>Prezentările sesiunilor</h1>
+      <p class="sub">
+        Slide-urile prezentate în ateliere, de deschis online sau de descărcat.
+      </p>
+
+      <ul class="list">
+        <!-- Ovidiu Chiș · HTML pe site -->
+        <li class="card">
+          <span class="ico"
+            ><svg viewBox="0 0 24 24">
+              <path d="M12 2 2 7l10 5 10-5-10-5z" />
+              <path d="M2 12l10 5 10-5" />
+              <path d="M2 17l10 5 10-5" /></svg
+          ></span>
+          <span class="who">Ovidiu Chiș</span>
+          <h2>Dezvoltări pe platforma ASiS</h2>
+          <p>
+            DocNativ, Vizor, iFrame și webConfigLinkuri: ce am construit pe
+            platformă, cu exemple de cod și trei demo-uri scurte.
+          </p>
+          <div class="meta"><span class="fmt">Pe site</span><span>15 slide-uri</span></div>
+          <div class="url">
+            <a href="ovidiu.html">teambuilding.asis.ro/prezentari/ovidiu</a>
+          </div>
+          <div class="actions">
+            <a class="btn primary" href="ovidiu.html">Deschide prezentarea</a>
+          </div>
+        </li>
+
+        <!-- Cristian Pavel · ASiS 2027 -->
+        <li class="card">
+          <span class="ico"
+            ><svg viewBox="0 0 24 24">
+              <path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z" /></svg
+          ></span>
+          <span class="who">Cristian Pavel</span>
+          <h2>ASiS 2027: mai puțin în ERP, mai mult cu clientul</h2>
+          <p>
+            Ce am livrat într-un an, feature-urile în lucru pentru ASiS 2027 și
+            ce înseamnă ele pentru parteneri.
+          </p>
+          <div class="meta"><span class="fmt">PowerPoint</span><span>20 slide-uri</span></div>
+          <div class="url">
+            <a href="ASiS-2027.pptx" download
+              >teambuilding.asis.ro/prezentari/ASiS-2027.pptx</a
+            >
+          </div>
+          <div class="actions">
+            <a
+              class="btn primary"
+              href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fteambuilding.asis.ro%2Fprezentari%2FASiS-2027.pptx"
+              target="_blank"
+              rel="noopener"
+              >Vezi online</a
+            >
+            <a class="btn ghost" href="ASiS-2027.pptx" download>Descarcă .pptx</a>
+          </div>
+        </li>
+
+        <!-- Cristian Pavel · Viziune -->
+        <li class="card">
+          <span class="ico"
+            ><svg viewBox="0 0 24 24">
+              <ellipse cx="12" cy="5" rx="8" ry="3" />
+              <path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5" />
+              <path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3" /></svg
+          ></span>
+          <span class="who">Cristian Pavel</span>
+          <h2>Viziune: ERP, SQL Server, Fabric și AI</h2>
+          <p>
+            Patru straturi, un singur lanț: cum circulă datele de la ERP până la
+            AI și de ce ordinea straturilor contează.
+          </p>
+          <div class="meta"><span class="fmt">PowerPoint</span><span>26 slide-uri</span></div>
+          <div class="url">
+            <a href="Viziune-ERP-SQL-Fabric-AI.pptx" download
+              >teambuilding.asis.ro/prezentari/Viziune-ERP-SQL-Fabric-AI.pptx</a
+            >
+          </div>
+          <div class="actions">
+            <a
+              class="btn primary"
+              href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fteambuilding.asis.ro%2Fprezentari%2FViziune-ERP-SQL-Fabric-AI.pptx"
+              target="_blank"
+              rel="noopener"
+              >Vezi online</a
+            >
+            <a class="btn ghost" href="Viziune-ERP-SQL-Fabric-AI.pptx" download
+              >Descarcă .pptx</a
+            >
+          </div>
+        </li>
+
+        <!-- Andrei Pop · AI în implementare -->
+        <li class="card">
+          <span class="ico"
+            ><svg viewBox="0 0 24 24">
+              <rect x="5" y="7" width="14" height="12" rx="3" />
+              <path d="M12 3v4M9 12h.01M15 12h.01M9.5 16h5" />
+              <path d="M3 12v2M21 12v2" /></svg
+          ></span>
+          <span class="who">Andrei Pop</span>
+          <h2>AI în procesul de implementare</h2>
+          <p>
+            Cum lucrăm cu Claude direct pe bazele de date ale clienților, prin
+            MCP: patru luni de lucru, 13 clienți și regulile care țin producția
+            în siguranță.
+          </p>
+          <div class="meta"><span class="fmt">PowerPoint</span><span>7 slide-uri</span></div>
+          <div class="url">
+            <a href="AI-in-procesul-de-implementare.pptx" download
+              >teambuilding.asis.ro/prezentari/AI-in-procesul-de-implementare.pptx</a
+            >
+          </div>
+          <div class="actions">
+            <a
+              class="btn primary"
+              href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fteambuilding.asis.ro%2Fprezentari%2FAI-in-procesul-de-implementare.pptx"
+              target="_blank"
+              rel="noopener"
+              >Vezi online</a
+            >
+            <a class="btn ghost" href="AI-in-procesul-de-implementare.pptx" download
+              >Descarcă .pptx</a
+            >
+          </div>
+        </li>
+      </ul>
+    </main>
+
+    <div class="foot">
+      <a class="back" href="../index.html">← Team Building 2026</a>
+      <span>teambuilding.asis.ro/prezentari</span>
+    </div>
+  </body>
+</html>
