@@ -1135,6 +1135,495 @@
         }
       }
 
+      /* ---------- Mobil: scena 16:9 ar face textul ilizibil, așa că slide-ul curent
+         se rearanjează pe o coloană, cu dimensiuni fixe și derulare verticală ---------- */
+      @media (max-width: 760px), (max-height: 500px) {
+        html,
+        body {
+          height: auto;
+        }
+        body {
+          display: block;
+          padding: 0 0 calc(60px + env(safe-area-inset-bottom));
+        }
+        .stage,
+        :fullscreen .stage {
+          width: 100%;
+          aspect-ratio: auto;
+          min-height: calc(100svh - 60px - env(safe-area-inset-bottom));
+          display: flex;
+          flex-direction: column;
+          border-radius: 0;
+          box-shadow: none;
+          overflow-x: clip;
+        }
+        .slide {
+          position: relative;
+          inset: auto;
+          flex: 1 0 auto;
+          padding: max(28px, env(safe-area-inset-top)) 18px 24px;
+          font-size: 15px;
+        }
+        .slide.content {
+          padding-bottom: 24px;
+        }
+        .slide .head {
+          margin-bottom: 18px;
+        }
+        .slide .head .no {
+          font-size: 11px;
+          margin-bottom: 6px;
+        }
+        .slide h2 {
+          font-size: 26px;
+        }
+        .slide .sub {
+          font-size: 16px;
+          margin-top: 6px;
+        }
+        .tag {
+          font-size: 12px;
+          padding: 4px 10px;
+          border-radius: 6px;
+        }
+        .chip {
+          align-self: flex-start;
+          gap: 6px;
+          font-size: 13px;
+          padding: 6px 12px;
+          border-radius: 8px;
+        }
+        .chip svg {
+          width: 14px;
+          height: 14px;
+        }
+        .brand {
+          position: static;
+          gap: 8px;
+          font-size: 14px;
+          margin-bottom: 8px;
+        }
+        .brand .mark {
+          width: 16px;
+          height: 16px;
+          gap: 2px;
+        }
+        .hex,
+        .ring,
+        .ast {
+          display: none;
+        }
+
+        .cards {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 14px;
+        }
+        .card {
+          border-radius: 12px;
+          box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+          padding: 16px;
+        }
+        .card > h3 {
+          font-size: 18px;
+          margin-bottom: 8px;
+        }
+        .card p {
+          font-size: 14.5px;
+        }
+        .card.ic {
+          margin-top: 28px;
+          padding-top: 36px;
+        }
+        .card .ico {
+          top: -26px;
+          width: 52px;
+          height: 52px;
+          box-shadow: 0 3px 8px rgba(26, 0, 226, 0.25);
+        }
+        .card .ico svg {
+          width: 24px;
+          height: 24px;
+        }
+        .card.bar > h3 {
+          font-size: 15px;
+          padding: 9px 14px;
+        }
+        .card.bar .body {
+          padding: 12px 14px 14px;
+        }
+        .slide ul li {
+          padding-left: 18px;
+          margin: 6px 0;
+          font-size: 14.5px;
+        }
+        .slide ul li::before {
+          width: 7px;
+          height: 7px;
+          border-width: 2px;
+        }
+        .slide .callout {
+          margin-top: 22px;
+          padding-top: 14px;
+          font-size: 16px;
+        }
+        .callout::after {
+          margin-top: 12px;
+          height: 2px;
+        }
+
+        .quote {
+          gap: 12px;
+          margin-bottom: 18px;
+        }
+        .quote .q {
+          font-size: 56px;
+          margin-top: 8px;
+        }
+        .quote p {
+          font-size: 19px;
+        }
+        .quote small {
+          font-size: 12px;
+          margin-top: 6px;
+        }
+        .flow {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 6px;
+          margin-top: 4px;
+        }
+        .flow .node {
+          border-radius: 10px;
+          padding: 12px 14px;
+        }
+        .flow .node b {
+          font-size: 16px;
+        }
+        .flow .node span {
+          font-size: 13px;
+        }
+        .flow .arr {
+          justify-self: center;
+          font-size: 22px;
+          transform: rotate(90deg);
+        }
+
+        .pills {
+          position: static;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 6px;
+          padding: 0 16px 18px;
+        }
+        .pill,
+        .pills .last-mark {
+          font-size: 11px;
+        }
+        .pill {
+          padding: 6px 10px;
+          border-radius: 5px;
+        }
+        .pills .last-mark {
+          flex-basis: 100%;
+          justify-content: center;
+          gap: 6px;
+          margin: 0 0 2px;
+        }
+        .pills .last-mark::before {
+          width: 7px;
+          height: 7px;
+          box-shadow: 0 0 0 3px rgba(0, 187, 195, 0.25);
+        }
+        .pills.last .pill.on {
+          box-shadow: inset -4px 0 0 var(--teal);
+        }
+
+        .card .link.url {
+          padding-top: 12px;
+          font-size: 14px;
+        }
+        .slide.bonus .cards {
+          margin-top: 8px;
+        }
+        .slide.bonus .card p {
+          font-size: 15px;
+        }
+        .slide.bonus .card .link.url {
+          font-size: 14px;
+        }
+        .card .urls {
+          gap: 8px;
+          padding-top: 12px;
+        }
+        .card .urls .link.url {
+          padding: 10px 12px;
+          border-radius: 8px;
+        }
+        .card .link.url span {
+          font-size: 14px;
+          margin-bottom: 2px;
+        }
+
+        /* Titlu */
+        .slide.title {
+          justify-content: center;
+          gap: 16px;
+        }
+        .slide.title h1 {
+          font-size: 38px;
+          max-width: none;
+        }
+        .slide.title .lines {
+          gap: 6px;
+          font-size: 16px;
+          margin-top: 8px;
+        }
+        .wire {
+          right: -90px;
+          top: 30px;
+          width: 320px;
+          height: 320px;
+          opacity: 0.45;
+        }
+
+        /* Despre ce vorbim */
+        .slide.overview {
+          flex-direction: column;
+          align-items: stretch;
+          justify-content: center;
+          gap: 26px;
+        }
+        .slide.overview .left {
+          flex: none;
+        }
+        .slide.overview .left h2 {
+          font-size: 30px;
+        }
+        .slide.overview .left p {
+          font-size: 17px;
+          margin-top: 8px;
+        }
+        .slide.overview .rows {
+          gap: 14px;
+        }
+        .row {
+          gap: 14px;
+          font-size: 17px;
+        }
+        .row .sq {
+          width: 44px;
+          height: 44px;
+          border-width: 1.5px;
+          border-radius: 10px;
+          font-size: 18px;
+        }
+        .row small {
+          font-size: 13px;
+          margin-top: 2px;
+        }
+
+        /* Demo */
+        .slide.demo .tag {
+          position: static;
+          align-self: flex-start;
+          margin-bottom: 18px;
+        }
+        .slide.demo h2 {
+          font-size: 34px;
+          max-width: none;
+        }
+        .slide.demo .who {
+          font-size: 16px;
+          margin-top: 14px;
+        }
+        .slide.demo .scn {
+          margin-top: 14px;
+          max-width: none;
+          font-size: 15px;
+        }
+        .grid-blue {
+          opacity: 0.3;
+        }
+        .guests {
+          gap: 6px;
+          margin-top: 10px;
+          font-size: 13px;
+        }
+        .guests .lbl {
+          font-size: 11px;
+          margin-right: 2px;
+        }
+        .guests span:not(.lbl) {
+          padding: 3px 10px;
+          font-size: 13px;
+        }
+        .slide.content .guests {
+          margin-top: 6px;
+        }
+
+        /* Cod și pași */
+        .code-grid,
+        .code-grid.two {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 12px;
+        }
+        .code-grid[style] {
+          margin-top: 14px !important;
+        }
+        .code,
+        .card.bar .code,
+        .slide.sablon .code,
+        .slide.linkuri .card.bar .code {
+          font-size: 11.5px;
+          line-height: 1.5;
+          padding: 12px;
+          border-radius: 10px;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        .card.bar .code {
+          margin-bottom: 12px;
+        }
+        .code .hl,
+        .card.bar .code .hl {
+          margin: 0 -12px;
+          padding: 0 12px;
+          border-left-width: 3px;
+          width: max-content;
+          min-width: calc(100% + 24px);
+        }
+        .code .hl::after {
+          position: static;
+          margin-left: 12px;
+          font-size: 10px;
+        }
+        .steps {
+          gap: 10px;
+        }
+        .step {
+          grid-template-columns: 44px minmax(0, 1fr);
+          gap: 12px;
+          border-radius: 10px;
+          padding: 12px 14px;
+        }
+        .step b {
+          width: 44px;
+          height: 44px;
+          border-radius: 8px;
+          font-size: 18px;
+        }
+        .step b[style] {
+          font-size: 11px !important;
+        }
+        .step p,
+        .slide.linkuri .step p {
+          font-size: 14px;
+        }
+        .step p strong {
+          font-size: 15px;
+        }
+        .step code {
+          font-size: 13px;
+          overflow-wrap: anywhere;
+        }
+        .card.bar ul li {
+          font-size: 14px;
+          margin: 5px 0;
+        }
+
+        /* Șablon DocNativ */
+        .slide.sablon .head {
+          margin-bottom: 18px;
+        }
+        .slide.sablon .card.ic {
+          margin-top: 28px;
+          padding-top: 36px;
+          padding-bottom: 16px;
+        }
+        .slide.sablon .card > h3 {
+          font-size: 18px;
+          margin-bottom: 8px;
+        }
+        .slide.sablon .card p {
+          font-size: 14.5px;
+        }
+
+        /* Final */
+        .slide.end {
+          justify-content: flex-start;
+        }
+        .frame {
+          padding: 2px;
+          border-radius: 14px;
+          margin: 0;
+        }
+        .frame > div,
+        .frame.three > div {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 12px;
+          border-radius: 12px;
+          padding: 12px;
+        }
+        .box {
+          padding: 20px 16px;
+          border-radius: 10px;
+          gap: 12px;
+        }
+        .box .big {
+          font-size: 20px;
+        }
+        .box .big[style] {
+          font-size: 15px !important;
+          overflow-wrap: anywhere;
+        }
+        .box .tag {
+          font-size: 14px;
+          padding: 6px 16px;
+        }
+        .box .qr {
+          width: 150px;
+          height: 150px;
+          border-radius: 6px;
+          padding: 6px;
+        }
+        .box.next .arrow {
+          font-size: 56px;
+        }
+
+        /* Bara de control: fixă jos, butoane mari pentru deget */
+        .hud,
+        :fullscreen .hud {
+          position: fixed;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          z-index: 10;
+          width: auto;
+          display: flex;
+          flex-wrap: nowrap;
+          padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
+          background: rgba(238, 240, 246, 0.94);
+          -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
+          border-top: 1px solid var(--page-line);
+        }
+        .hud .hint {
+          display: none;
+        }
+        .hud a,
+        .hud button {
+          min-height: 40px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          white-space: nowrap;
+        }
+        .hud button {
+          min-width: 40px;
+          font-size: 18px;
+          padding: 0 10px;
+        }
+      }
+
       /* ---------- Tipărire: toate slide-urile, câte unul pe pagină ---------- */
       @media print {
         @page {
@@ -1938,11 +2427,16 @@ Bon de consum BC-1024
         const stage = document.getElementById("stage");
         const backHref = "../index.html";
         let current = 0;
+        // Același prag ca în CSS: pe mobil slide-ul se rearanjează pe verticală
+        const mobile = window.matchMedia("(max-width: 760px), (max-height: 500px)");
 
         const clamp = (n) => Math.max(0, Math.min(slides.length - 1, n));
 
         function show(n, updateHash = true) {
+          const prev = current;
           current = clamp(n);
+          if (mobile.matches && updateHash && current !== prev)
+            window.scrollTo(0, 0);
           slides.forEach((s, i) => s.classList.toggle("active", i === current));
           if (counter)
             counter.textContent = `${current + 1} / ${slides.length}`;
@@ -2024,28 +2518,39 @@ Bon de consum BC-1024
         document
           .querySelector("[data-next]")
           ?.addEventListener("click", () => show(current + 1));
-        document
-          .querySelector("[data-full]")
-          ?.addEventListener("click", toggleFull);
+        const fullBtn = document.querySelector("[data-full]");
+        if (!document.documentElement.requestFullscreen) fullBtn?.remove(); // ex. Safari pe iPhone
+        fullBtn?.addEventListener("click", toggleFull);
 
         // Click pe jumătatea dreaptă/stângă a scenei = următor/anterior (nu și pe linkuri)
         stage.addEventListener("click", (e) => {
           if (e.target.closest("a,button")) return;
+          if (mobile.matches) return; // pe mobil: swipe sau butoanele de jos, ca atingerea textului să nu sară slide-ul
           const r = stage.getBoundingClientRect();
           show(current + (e.clientX - r.left > r.width / 2 ? 1 : -1));
         });
 
-        // Swipe pe ecrane touch
+        // Swipe pe ecrane touch (orizontal; nu și când derulezi pagina sau un bloc de cod)
         let startX = null;
+        let startY = null;
         document.addEventListener(
           "touchstart",
-          (e) => (startX = e.touches[0].clientX),
+          (e) => {
+            if (e.touches.length !== 1 || e.target.closest?.(".code")) {
+              startX = null;
+              return;
+            }
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+          },
           { passive: true },
         );
         document.addEventListener("touchend", (e) => {
           if (startX === null) return;
           const dx = e.changedTouches[0].clientX - startX;
-          if (Math.abs(dx) > 60) show(current + (dx < 0 ? 1 : -1));
+          const dy = e.changedTouches[0].clientY - startY;
+          if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5)
+            show(current + (dx < 0 ? 1 : -1));
           startX = null;
         });
       })();
