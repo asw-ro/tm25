@@ -1,34 +1,39 @@
-# Teambuilding 2025 · Timișoara
+# Team Building ASiS · teambuilding.asis.ro
 
-Acest repository conține o pagină statică HTML/CSS/JS creată pentru prezentarea programului Team Building-ului ASW din Timișoara, 17-19 octombrie 2025. Design-ul este inspirat de identitatea vizuală Microsoft Copilot, cu accent pe tehnologie, colaborare și experiențe comune.
+Site static (HTML/CSS/JS, fără build), publicat prin GitHub Pages pe `teambuilding.asis.ro`. Fiecare ediție anuală are propriul folder, păstrat neschimbat după eveniment. Intrarea pe site trimite automat la ultima ediție, iar din orice pagină se poate trece la alt an din selectorul din colțul de sus.
 
-## Ce include
+## Ediții
 
-- **Programul complet** pentru vineri-duminică, cu timeline elegant și clar.
-- **Secțiune dedicată prezentărilor tehnice**, inclusiv indicator dinamic pentru actualizări.
-- **Informații logistice** (locație, gazdă, persoană de contact) cu link-uri către Google Maps și site-urile oficiale.
-- **Elemente moderne de branding**: favicon, manifest PWA, card social pentru distribuire pe rețele, gradient Copilot.
-- **Countdown dinamic** în JavaScript, care arată câte zile mai sunt până la eveniment.
+| An | Locație | Pagina |
+|---|---|---|
+| 2026 | Theodora Golf Club, lângă Alba Iulia · 2–4 octombrie | [`2026/`](./2026/index.html) |
+| 2025 | Timișoara, Hotel Serenity · 17–19 octombrie | [`2025/`](./2025/index.html) |
 
-## Cum se folosește
-
-1. Deschide fișierul [`index.html`](./index.html) într-un browser modern.
-2. Pentru distribuirea online, publică folderul pe un server HTTP sau prin GitHub Pages.
-3. Dacă actualizezi datele (program, prezentări, locații), modifică direct conținutul HTML.
-4. Poți ajusta paleta de culori și branding-ul din secțiunea `<style>` pentru a reflecta alte teme.
-
-## Utilizare internă
-
-Acest proiect poate fi folosit ca **template pentru viitoare teambuilding-uri** sau alte evenimente interne Soft Net Consulting / Alfa Software. Structura modulară și stilurile moderne permit adaptări rapide: schimbă datele, imaginile și culorile pentru noul context și păstrează experiența coerentă pentru echipă.
-
-## Structura principală
+## Structura
 
 ```
 .
-├── index.html   # Pagina principală (HTML + CSS + JS inline)
-├── assets/
-│   ├── favicon.svg          # Iconiță browser / PWA
-│   ├── site.webmanifest     # Manifest pentru instalare pe dispozitive mobile
-│   └── social-card.svg      # Card social pentru partajare
-└── README.md                # Acest fișier
+├── index.html         # Redirect către ultima ediție (+ meta OG pentru partajare)
+├── years.js           # Lista edițiilor și selectorul de an, comun tuturor paginilor
+├── 2026/
+│   ├── index.html     # Pagina ediției (HTML + CSS + JS inline)
+│   └── assets/        # favicon, manifest, social card, invitație .ics
+├── 2025/
+│   ├── index.html
+│   └── assets/
+├── prezentari/        # Prezentările ediției 2026 (rămân aici: URL-urile sunt în slide-uri și coduri QR)
+├── program.md         # Ciorna programului 2026
+└── CNAME
 ```
+
+## Ediție nouă (ex. 2027)
+
+1. Copiază folderul ultimului an în `2027/` și actualizează conținutul din `2027/index.html` și `2027/assets/` (titluri, date, URL-uri `og:*` către `/2027/`, social card, `.ics`).
+2. În [`years.js`](./years.js), adaugă `{ year: "2027", place: "…" }` **primul** în listă. Selectorul apare automat în toate paginile.
+3. În [`index.html`](./index.html) de la rădăcină, înlocuiește `2026` cu `2027` (redirect, canonical, favicon, meta OG).
+4. Prezentările noii ediții merg în `2027/prezentari/`.
+5. Lasă folderele anilor anteriori neatinse.
+
+## Local
+
+Deschide `index.html` (sau direct `2026/index.html`) în browser. Pentru URL-uri identice cu cele de pe site, pornește un server în rădăcina repo-ului, de ex. `python -m http.server`.
